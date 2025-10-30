@@ -405,7 +405,9 @@
         // Calculate center coordinates
         const centerH = targetArea.left + (targetArea.width / 2);
         const centerV = targetArea.top + (targetArea.height / 2);
-        const snapThreshold = 10; // Snap sensitivity in pixels
+        
+        // --- UPDATED ---
+        const snapThreshold = 20; // Snap sensitivity increased to 20px
 
         // Create the guide lines (initially invisible)
         const guideLineV = new fabric.Line([ centerH, targetArea.top - 20, centerH, targetArea.top + targetArea.height + 20 ], {
@@ -429,21 +431,19 @@
             const obj = e.target;
             
             // --- Vertical Snap (Horizontal Center) ---
-            // Check if object's center is close to the horizontal center line
             if (Math.abs(obj.left - centerH) < snapThreshold) {
-                obj.set({ left: centerH }); // Snap!
-                guideLineV.set({ visible: true }); // Show guide
+                obj.set({ left: centerH });
+                guideLineV.set({ visible: true });
             } else {
-                guideLineV.set({ visible: false }); // Hide guide
+                guideLineV.set({ visible: false });
             }
 
             // --- Horizontal Snap (Vertical Center) ---
-            // Check if object's center is close to the vertical center line
             if (Math.abs(obj.top - centerV) < snapThreshold) {
-                obj.set({ top: centerV }); // Snap!
-                guideLineH.set({ visible: true }); // Show guide
+                obj.set({ top: centerV });
+                guideLineH.set({ visible: true });
             } else {
-                guideLineH.set({ visible: false }); // Hide guide
+                guideLineH.set({ visible: false });
             }
         });
 
