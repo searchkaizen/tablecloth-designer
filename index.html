@@ -148,6 +148,22 @@
             border-color: #d19a36;
         }
         
+        /* --- START: New Inverted Button Style --- */
+        .inverted-action-btn {
+            background-color: var(--brand-secondary-dark);
+            color: var(--brand-white);
+            font-weight: 600;
+            padding: 12px 30px;
+            border-color: var(--brand-secondary-dark);
+        }
+
+        .inverted-action-btn:hover {
+            background-color: var(--brand-primary);
+            color: var(--brand-secondary-dark);
+            border-color: var(--brand-primary);
+        }
+        /* --- END: New Inverted Button Style --- */
+        
         #color-swatch {
             width: 20px;
             height: 20px;
@@ -432,7 +448,7 @@
         
         <div class="download-wrapper">
              <button id="download-btn" class="modern-btn primary-action-btn">Download Mockup</button>
-             <button id="add-to-cart-btn" class="modern-btn primary-action-btn">Add to Cart</button>
+             <button id="add-to-cart-btn" class="modern-btn inverted-action-btn">Add to Cart</button>
         </div>
         <p class="disclaimer-text">For complex artwork with multiple layers or patterns - please submit a mockup request and our design team will send it within 24 hours </p>
         </div>
