@@ -471,14 +471,12 @@
         // --- START: Alignment & Clip Path Logic ---
         const targetArea = { left: 180, top: 230, width: 450, height: 120 };
         
-        // --- NEW: Create the clipping rectangle ---
-        // This will be applied to all objects added to the canvas
         const clipRect = new fabric.Rect({
             left: targetArea.left,
             top: targetArea.top,
             width: targetArea.width,
             height: targetArea.height,
-            absolutePositioned: true // Makes clipPath relative to canvas, not object
+            absolutePositioned: true 
         });
         
         const centerH = targetArea.left + (targetArea.width / 2);
@@ -598,7 +596,7 @@
                         left: centerH,
                         top: centerV,
                         originX: 'center', originY: 'center',
-                        clipPath: clipRect // --- NEW: Apply clipping mask
+                        clipPath: clipRect // Apply clipping mask
                     });
                     addDeleteControl(logoImg);
                     canvas.add(logoImg).setActiveObject(logoImg).renderAll();
@@ -641,7 +639,7 @@
                     top: centerV,
                     originX: 'center',
                     originY: 'center',
-                    clipPath: clipRect // --- NEW: Apply clipping mask
+                    clipPath: clipRect // Apply clipping mask
                 });
                 addDeleteControl(text);
                 canvas.add(text).setActiveObject(text).renderAll();
@@ -766,30 +764,35 @@
         // --- END: PANTONE MODAL LOGIC ---
         
 
-        // --- START: New Contextual Controls Logic (Opacity & Layers) ---
+        // --- START: Contextual Controls Logic (Opacity & Layers) ---
         const contextualControls = document.getElementById('contextual-controls');
         const opacitySlider = document.getElementById('opacity-slider');
         
+        // --- BUG FIX ---
+        // We now check canvas.getActiveObject() instead of e.target
+        function updateControls(e) {
+            const activeObj = canvas.getActiveObject();
+
+            // If it's a single object (not a multi-selection)
+            if (activeObj && activeObj.type !== 'activeSelection') {
+                // Set slider to match object's opacity (defaulting to 1)
+                opacitySlider.value = (activeObj.opacity === undefined ? 1 : activeObj.opacity) * 100;
+                contextualControls.classList.add('visible');
+            } else {
+                // If it's a multi-selection or nothing is selected
+                contextualControls.classList.remove('visible');
+            }
+        }
+
         canvas.on('selection:created', updateControls);
         canvas.on('selection:updated', updateControls);
         canvas.on('selection:cleared', (e) => {
-            if (e.target && e.target.type === 'activeSelection') return; // Do nothing if clearing for multi-select
             contextualControls.classList.remove('visible');
             guideLineV.set({ visible: false });
             guideLineH.set({ visible: false });
             canvas.renderAll();
         });
-
-        function updateControls(e) {
-            const obj = e.target;
-            if (obj.type === 'activeSelection') { // Hide if multi-select
-                contextualControls.classList.remove('visible');
-                return;
-            }
-            // Set slider to match object's opacity
-            opacitySlider.value = obj.opacity * 100;
-            contextualControls.classList.add('visible');
-        }
+        // --- END BUG FIX ---
 
         // Opacity Slider Listener
         opacitySlider.addEventListener('input', (e) => {
