@@ -46,6 +46,58 @@
             gap: 15px;
             margin-top: 20px;
         }
+        
+        /* New Contextual Controls Bar */
+        #contextual-controls {
+            display: none; /* Hidden by default */
+            align-items: center;
+            gap: 20px;
+            padding: 10px 15px;
+            background-color: var(--brand-white);
+            border: 1px solid #eee;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        #contextual-controls.visible {
+            display: flex;
+        }
+        
+        .context-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .context-group label {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        #opacity-slider {
+            width: 120px;
+        }
+        
+        .layer-btn {
+            background: none;
+            border: none;
+            padding: 4px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s ease;
+        }
+        
+        .layer-btn:hover {
+            background-color: var(--brand-secondary-light);
+        }
+        
+        .layer-btn img {
+            width: 22px;
+            height: 22px;
+        }
 
         .controls {
             display: flex;
@@ -114,7 +166,6 @@
         }
         
         #color-btn-main {
-            /* Style like .modern-btn but with rounded right corners removed */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -133,7 +184,6 @@
         }
         
         #color-btn-dropdown {
-             /* Style like .modern-btn but only for the arrow */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -257,7 +307,6 @@
 
         #pantone-grid {
             display: grid;
-            /* Updated to be slightly larger to fit text */
             grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
             gap: 10px;
             max-height: 400px;
@@ -267,15 +316,14 @@
             border-radius: 8px;
         }
         
-        /* NEW: This is the main card container */
         .pantone-card {
             position: relative;
-            aspect-ratio: 1 / 1; /* Modern way to make a square */
+            aspect-ratio: 1 / 1; 
             border-radius: 6px;
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.1);
             transition: transform 0.1s ease;
-            overflow: hidden; /* Keeps label and bg inside rounded corners */
+            overflow: hidden; 
         }
         
         .pantone-card:hover {
@@ -283,29 +331,27 @@
             border-color: rgba(0,0,0,0.5);
         }
 
-        /* NEW: This is just the background color */
         .pantone-swatch-bg {
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
             width: 100%; height: 100%;
         }
 
-        /* NEW: This is the text overlay */
         .pantone-label {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
             background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(2px); /* Modern blur effect */
+            backdrop-filter: blur(2px); 
             color: var(--brand-secondary-dark);
-            font-size: 9px; /* Made smaller to fit more names */
+            font-size: 9px; 
             font-weight: 600;
             padding: 4px;
             text-align: center;
             white-space: nowrap;
             overflow: hidden;
-            text-overflow: ellipsis; /* Adds '...' if name is too long */
+            text-overflow: ellipsis;
             box-sizing: border-box;
             border-top: 1px solid rgba(0,0,0,0.05);
         }
@@ -321,6 +367,28 @@
     <canvas id="editor-canvas" width="800" height="500"></canvas>
 
     <div class="controls-wrapper">
+    
+        <div id="contextual-controls">
+            <div class="context-group">
+                <label for="opacity-slider">Opacity:</label>
+                <input type="range" id="opacity-slider" min="0" max="100" value="100">
+            </div>
+            <div class="context-group">
+                <label>Layers:</label>
+                <button id="layer-front-btn" class="layer-btn" title="Bring to Front">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%231D1D1D' viewBox='0 0 256 256'%3E%3Cpath d='M216,96H160V40a8,8,0,0,0-8-8H40a8,8,0,0,0-8,8V152a8,8,0,0,0,8,8h56v56a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V104A8,8,0,0,0,216,96ZM160,152h-8V96h8Zm48,48H168V160a8,8,0,0,0-8-8H104V152a8,8,0,0,0,8,8h40v32Zm0-56H168v-8h48Z'%3E%3C/path%3E%3C/svg%3E" alt="Bring to Front">
+                </button>
+                <button id="layer-forward-btn" class="layer-btn" title="Bring Forward">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%231D1D1D' viewBox='0 0 256 256'%3E%3Cpath d='M216,96H160V40a8,8,0,0,0-8-8H40a8,8,0,0,0-8,8V152a8,8,0,0,0,8,8h56v56a8,8,0,0,0,8,8H216a8,8,0,0,0,8-8V104A8,8,0,0,0,216,96ZM96,152H48V48h96v40H96v64Zm112,48H168V160a8,8,0,0,0-8-8H104v-8h48a8,8,0,0,0,8-8V96h48v96Z'%3E%3C/path%3E%3C/svg%3E" alt="Bring Forward">
+                </button>
+                <button id="layer-backward-btn" class="layer-btn" title="Send Backward">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%231D1D1D' viewBox='0 0 256 256'%3E%3Cpath d='M216,104a8,8,0,0,0-8,8V216H104a8,8,0,0,0-8,8H40a8,8,0,0,0-8-8V104a8,8,0,0,0-8-8H96V40a8,8,0,0,1,8-8H216a8,8,0,0,1,8,8v56H160a8,8,0,0,0-8,8Zm-8-56H112v88a8,8,0,0,0,8,8h40V104a8,8,0,0,0-8-8H112V48Zm0,160V160H104v48a8,8,0,0,0,8,8h88V208Z'%3E%3C/path%3E%3C/svg%3E" alt="Send Backward">
+                </button>
+                <button id="layer-back-btn" class="layer-btn" title="Send to Back">
+                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%231D1D1D' viewBox='0 0 256 256'%3E%3Cpath d='M216,32H104a8,8,0,0,0-8,8V96H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H152a8,8,0,0,0,8-8V160h56a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM152,216H48V112h48v40a8,8,0,0,0,8,8h48Zm56-56H160a8,8,0,0,0-8,8v40H112V104a8,8,0,0,0-8-8H48V48h96V96h8v32h48Z'%3E%3C/path%3E%3C/svg%3E" alt="Send to Back">
+                </button>
+            </div>
+        </div>
         <div class="controls">
             <button id="upload-btn" class="modern-btn">
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23495057' viewBox='0 0 256 256'%3E%3Cpath d='M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-42.06-42.07a16,16,0,0,0-22.62,0L136,132,93.66,89.66a16,16,0,0,0-22.62,0L40,120.75V56H216Zm-29.66,122.34a16,16,0,0,0-22.62-22.62L136,183.25l-11.59-11.59a16,16,0,0,0-22.62,0L40,200H71.25l22.41-22.4a16,16,0,0,0,22.62,0L152,189.25l50.34-50.34a16,16,0,0,0-22.62-22.62L164,131.59,134.34,101.93a16,16,0,0,0-22.62,22.62L144,156.75V200h43.25l28.41-28.4a16,16,0,0,0,0-22.62ZM88,104a12,12,0,1,1-12-12A12,12,0,0,1,88,104Z'%3E%3C/path%3E%3C/svg%3E" alt="Image Icon">
@@ -344,7 +412,7 @@
                     <button id="dropdown-item-pantone">Pantone® Color Library</button>
                 </div>
             </div>
-            </div>
+        </div>
         <div class="download-wrapper">
              <button id="download-btn" class="modern-btn primary-action-btn">Download Mockup</button>
         </div>
@@ -393,23 +461,30 @@
             </div>
         </div>
     </div>
+
     <script>
     document.addEventListener('DOMContentLoaded', () => {
         const canvas = new fabric.Canvas('editor-canvas', {
             preserveObjectStacking: true
         });
 
-        // --- START: Alignment Guide & Snap Logic ---
+        // --- START: Alignment & Clip Path Logic ---
         const targetArea = { left: 180, top: 230, width: 450, height: 120 };
         
-        // Calculate center coordinates
+        // --- NEW: Create the clipping rectangle ---
+        // This will be applied to all objects added to the canvas
+        const clipRect = new fabric.Rect({
+            left: targetArea.left,
+            top: targetArea.top,
+            width: targetArea.width,
+            height: targetArea.height,
+            absolutePositioned: true // Makes clipPath relative to canvas, not object
+        });
+        
         const centerH = targetArea.left + (targetArea.width / 2);
         const centerV = targetArea.top + (targetArea.height / 2);
-        
-        // --- UPDATED ---
-        const snapThreshold = 20; // Snap sensitivity increased to 20px
+        const snapThreshold = 20; 
 
-        // Create the guide lines (initially invisible)
         const guideLineV = new fabric.Line([ centerH, targetArea.top - 20, centerH, targetArea.top + targetArea.height + 20 ], {
             stroke: 'red',
             strokeWidth: 1,
@@ -430,7 +505,6 @@
         canvas.on('object:moving', (e) => {
             const obj = e.target;
             
-            // --- Vertical Snap (Horizontal Center) ---
             if (Math.abs(obj.left - centerH) < snapThreshold) {
                 obj.set({ left: centerH });
                 guideLineV.set({ visible: true });
@@ -438,7 +512,6 @@
                 guideLineV.set({ visible: false });
             }
 
-            // --- Horizontal Snap (Vertical Center) ---
             if (Math.abs(obj.top - centerV) < snapThreshold) {
                 obj.set({ top: centerV });
                 guideLineH.set({ visible: true });
@@ -447,20 +520,12 @@
             }
         });
 
-        // Hide guides when user stops dragging
         canvas.on('object:modified', () => {
             guideLineV.set({ visible: false });
             guideLineH.set({ visible: false });
             canvas.renderAll();
         });
-
-        // Hide guides if user deselects
-        canvas.on('selection:cleared', () => {
-            guideLineV.set({ visible: false });
-            guideLineH.set({ visible: false });
-            canvas.renderAll();
-        });
-        // --- END: Alignment Guide & Snap Logic ---
+        // --- END: Alignment & Clip Path Logic ---
 
 
         // --- DELETE FUNCTIONALITY ---
@@ -530,10 +595,10 @@
                     
                     logoImg.scale(scale);
                     logoImg.set({
-                        // Set initial position to center (it will snap)
                         left: centerH,
                         top: centerV,
-                        originX: 'center', originY: 'center'
+                        originX: 'center', originY: 'center',
+                        clipPath: clipRect // --- NEW: Apply clipping mask
                     });
                     addDeleteControl(logoImg);
                     canvas.add(logoImg).setActiveObject(logoImg).renderAll();
@@ -572,15 +637,15 @@
                     stroke: '#ffffff',
                     strokeWidth: 1,
                     paintFirst: 'stroke',
-                    // Set initial position to center
                     left: centerH,
                     top: centerV,
                     originX: 'center',
-                    originY: 'center'
+                    originY: 'center',
+                    clipPath: clipRect // --- NEW: Apply clipping mask
                 });
                 addDeleteControl(text);
                 canvas.add(text).setActiveObject(text).renderAll();
-                modalTextInput.value = ''; // Reset for next time
+                modalTextInput.value = ''; 
                 hideTextModal();
             }
         });
@@ -598,10 +663,6 @@
         const colorDropdownMenu = document.getElementById('color-dropdown-menu');
         const pantoneModal = document.getElementById('pantone-modal');
 
-        /**
-         * Applies a color to the tablecloth background image.
-         * @param {string} color - The hex color code (e.g., "#FFFFFF").
-         */
         function applyTableclothColor(color) {
             colorSwatch.style.backgroundColor = color;
             const bgImage = canvas.backgroundImage;
@@ -609,7 +670,6 @@
 
             bgImage.filters = [];
             if (color.toLowerCase() !== '#ffffff') {
-                // Apply a multiply filter to tint the image
                 bgImage.filters.push(new fabric.Image.filters.BlendColor({
                     color: color,
                     mode: 'multiply'
@@ -618,41 +678,26 @@
             bgImage.applyFilters();
             canvas.renderAll();
         }
-
-        // --- Split Button Listeners ---
         
-        // Main button opens native picker
-        colorBtnMain.addEventListener('click', () => {
-            colorInput.click();
-        });
-
-        // Arrow button toggles the dropdown
+        colorBtnMain.addEventListener('click', () => colorInput.click());
         colorBtnDropdown.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent window click from closing it immediately
+            e.stopPropagation(); 
             colorDropdownMenu.style.display = colorDropdownMenu.style.display === 'block' ? 'none' : 'block';
         });
-
-        // --- Dropdown Menu Item Listeners ---
         
-        // "Custom Color" opens native picker
         document.getElementById('dropdown-item-custom').addEventListener('click', () => {
             colorInput.click();
             colorDropdownMenu.style.display = 'none';
         });
         
-        // "Pantone" opens pantone modal
         document.getElementById('dropdown-item-pantone').addEventListener('click', () => {
             pantoneModal.classList.add('visible');
             document.getElementById('pantone-search').focus();
             colorDropdownMenu.style.display = 'none';
         });
 
-        // Native color picker input listener
-        colorInput.addEventListener('input', (e) => {
-            applyTableclothColor(e.target.value);
-        });
+        colorInput.addEventListener('input', (e) => applyTableclothColor(e.target.value));
         
-        // Close dropdown if clicking elsewhere
         window.addEventListener('click', () => {
             if (colorDropdownMenu.style.display === 'block') {
                 colorDropdownMenu.style.display = 'none';
@@ -664,18 +709,14 @@
         // --- START: PANTONE MODAL LOGIC ---
         const pantoneGrid = document.getElementById('pantone-grid');
         const pantoneSearch = document.getElementById('pantone-search');
-        let allPantoneColors = []; // Cache for searching
+        let allPantoneColors = []; 
 
-        // Load Pantone colors from the JSON file
         async function loadPantoneColors() {
             try {
                 const response = await fetch('pantone_colors.json');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                if (!response.ok) throw new Error('Network response was not ok');
                 allPantoneColors = await response.json();
                 
-                // Populate the grid
                 let swatchesHTML = '';
                 allPantoneColors.forEach(color => {
                     swatchesHTML += `
@@ -695,7 +736,6 @@
             }
         }
         
-        // Close the Pantone modal
         function hidePantoneModal() {
             pantoneModal.classList.remove('visible');
         }
@@ -704,39 +744,84 @@
             if (e.target === pantoneModal) { hidePantoneModal(); }
         });
 
-        // Handle clicking on a Pantone swatch
         pantoneGrid.addEventListener('click', (e) => {
             const card = e.target.closest('.pantone-card');
             if (card) {
-                const hex = card.dataset.hex;
-                applyTableclothColor(hex);
+                applyTableclothColor(card.dataset.hex);
                 hidePantoneModal();
             }
         });
 
-        // Handle searching/filtering
         pantoneSearch.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             const cards = pantoneGrid.getElementsByClassName('pantone-card');
             
             Array.from(cards).forEach(card => {
                 const name = card.dataset.name.toLowerCase();
-                if (name.includes(searchTerm)) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+                card.style.display = name.includes(searchTerm) ? 'block' : 'none';
             });
         });
 
-        // Load colors when the page is ready
         loadPantoneColors();
         // --- END: PANTONE MODAL LOGIC ---
+        
+
+        // --- START: New Contextual Controls Logic (Opacity & Layers) ---
+        const contextualControls = document.getElementById('contextual-controls');
+        const opacitySlider = document.getElementById('opacity-slider');
+        
+        canvas.on('selection:created', updateControls);
+        canvas.on('selection:updated', updateControls);
+        canvas.on('selection:cleared', (e) => {
+            if (e.target && e.target.type === 'activeSelection') return; // Do nothing if clearing for multi-select
+            contextualControls.classList.remove('visible');
+            guideLineV.set({ visible: false });
+            guideLineH.set({ visible: false });
+            canvas.renderAll();
+        });
+
+        function updateControls(e) {
+            const obj = e.target;
+            if (obj.type === 'activeSelection') { // Hide if multi-select
+                contextualControls.classList.remove('visible');
+                return;
+            }
+            // Set slider to match object's opacity
+            opacitySlider.value = obj.opacity * 100;
+            contextualControls.classList.add('visible');
+        }
+
+        // Opacity Slider Listener
+        opacitySlider.addEventListener('input', (e) => {
+            const obj = canvas.getActiveObject();
+            if (obj) {
+                obj.set({ opacity: parseInt(e.target.value) / 100 });
+                canvas.renderAll();
+            }
+        });
+        
+        // Layer Button Listeners
+        document.getElementById('layer-front-btn').addEventListener('click', () => {
+            const obj = canvas.getActiveObject();
+            if (obj) canvas.bringToFront(obj);
+        });
+        document.getElementById('layer-forward-btn').addEventListener('click', () => {
+            const obj = canvas.getActiveObject();
+            if (obj) canvas.bringForward(obj);
+        });
+        document.getElementById('layer-backward-btn').addEventListener('click', () => {
+            const obj = canvas.getActiveObject();
+            if (obj) canvas.sendBackwards(obj);
+        });
+        document.getElementById('layer-back-btn').addEventListener('click', () => {
+            const obj = canvas.getActiveObject();
+            if (obj) canvas.sendToBack(obj);
+        });
+        // --- END: Contextual Controls Logic ---
 
 
         // DOWNLOAD
         document.getElementById('download-btn').addEventListener('click', () => {
-            // Deselect objects and hide guides before downloading
             canvas.discardActiveObject().renderAll();
             guideLineV.set({ visible: false });
             guideLineH.set({ visible: false });
