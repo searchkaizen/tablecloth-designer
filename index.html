@@ -399,7 +399,69 @@
             preserveObjectStacking: true
         });
 
+        // --- START: Alignment Guide & Snap Logic ---
         const targetArea = { left: 180, top: 230, width: 450, height: 120 };
+        
+        // Calculate center coordinates
+        const centerH = targetArea.left + (targetArea.width / 2);
+        const centerV = targetArea.top + (targetArea.height / 2);
+        const snapThreshold = 10; // Snap sensitivity in pixels
+
+        // Create the guide lines (initially invisible)
+        const guideLineV = new fabric.Line([ centerH, targetArea.top - 20, centerH, targetArea.top + targetArea.height + 20 ], {
+            stroke: 'red',
+            strokeWidth: 1,
+            selectable: false,
+            evented: false,
+            visible: false
+        });
+        const guideLineH = new fabric.Line([ targetArea.left - 20, centerV, targetArea.left + targetArea.width + 20 ], {
+            stroke: 'red',
+            strokeWidth: 1,
+            selectable: false,
+            evented: false,
+            visible: false
+        });
+        
+        canvas.add(guideLineV, guideLineH);
+
+        canvas.on('object:moving', (e) => {
+            const obj = e.target;
+            
+            // --- Vertical Snap (Horizontal Center) ---
+            // Check if object's center is close to the horizontal center line
+            if (Math.abs(obj.left - centerH) < snapThreshold) {
+                obj.set({ left: centerH }); // Snap!
+                guideLineV.set({ visible: true }); // Show guide
+            } else {
+                guideLineV.set({ visible: false }); // Hide guide
+            }
+
+            // --- Horizontal Snap (Vertical Center) ---
+            // Check if object's center is close to the vertical center line
+            if (Math.abs(obj.top - centerV) < snapThreshold) {
+                obj.set({ top: centerV }); // Snap!
+                guideLineH.set({ visible: true }); // Show guide
+            } else {
+                guideLineH.set({ visible: false }); // Hide guide
+            }
+        });
+
+        // Hide guides when user stops dragging
+        canvas.on('object:modified', () => {
+            guideLineV.set({ visible: false });
+            guideLineH.set({ visible: false });
+            canvas.renderAll();
+        });
+
+        // Hide guides if user deselects
+        canvas.on('selection:cleared', () => {
+            guideLineV.set({ visible: false });
+            guideLineH.set({ visible: false });
+            canvas.renderAll();
+        });
+        // --- END: Alignment Guide & Snap Logic ---
+
 
         // --- DELETE FUNCTIONALITY ---
         const deleteIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23E34F4F' stroke='white' stroke-width='1.5'/%3E%3Cpath d='M8 8 L16 16 M16 8 L8 16' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E";
@@ -468,8 +530,9 @@
                     
                     logoImg.scale(scale);
                     logoImg.set({
-                        left: targetArea.left + (targetArea.width / 2),
-                        top: targetArea.top + (targetArea.height / 2),
+                        // Set initial position to center (it will snap)
+                        left: centerH,
+                        top: centerV,
                         originX: 'center', originY: 'center'
                     });
                     addDeleteControl(logoImg);
@@ -509,9 +572,14 @@
                     stroke: '#ffffff',
                     strokeWidth: 1,
                     paintFirst: 'stroke',
+                    // Set initial position to center
+                    left: centerH,
+                    top: centerV,
+                    originX: 'center',
+                    originY: 'center'
                 });
                 addDeleteControl(text);
-                canvas.add(text).centerObject(text).setActiveObject(text).renderAll();
+                canvas.add(text).setActiveObject(text).renderAll();
                 modalTextInput.value = ''; // Reset for next time
                 hideTextModal();
             }
@@ -668,7 +736,12 @@
 
         // DOWNLOAD
         document.getElementById('download-btn').addEventListener('click', () => {
-            canvas.discardActiveObject().renderAll();  
+            // Deselect objects and hide guides before downloading
+            canvas.discardActiveObject().renderAll();
+            guideLineV.set({ visible: false });
+            guideLineH.set({ visible: false });
+            canvas.renderAll();
+            
             const link = document.createElement('a');
             link.download = 'tablecover-mockup.png';
             link.href = canvas.toDataURL({ format: 'png', quality: 1.0 });
