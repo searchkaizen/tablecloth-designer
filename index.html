@@ -1,1 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Cover Mockup Editor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Montserrat:wght@400;700&family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+    <style>
+        :root {
+            --brand-primary: #F1B241;
+            --brand-secondary-dark: #1D1D1D;
+            --brand-secondary-light: #EDE8E7;
+            --brand-white: #FFFFFF;
+        }
 
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--brand-white);
+            color: var(--brand-secondary-dark);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--brand-secondary-dark);
+            margin-bottom: 20px;
+        }
+
+        canvas {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .controls-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap; /* Added for better responsiveness */
+            justify-content: center;
+            align-items: stretch;  
+            gap: 15px;
+            padding: 12px;
+            background-color: var(--brand-white);
+            border: 1px solid #eee;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+        
+        .modern-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background-color: var(--brand-secondary-light);
+            border: 1px solid var(--brand-secondary-light);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--brand-secondary-dark);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .modern-btn:hover {
+            background-color: #e2e0df;
+            border-color: #c9c7c6;
+        }
+        
+        .modern-btn img { width: 20px; height: 20px; }
+        
+        .primary-action-btn {
+            background-color: var(--brand-primary);
+            color: var(--brand-secondary-dark);
+            font-weight: 600;
+            padding: 12px 30px;
+            border-color: var(--brand-primary);
+        }
+        
+        .primary-action-btn:hover {
+            background-color: #d19a36;
+            border-color: #d19a36;
+        }
+        
+        #color-swatch {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid var(--brand-white);
+            box-shadow: 0 0 0 1px #ccc;  
+        }
+
+        .hidden-inputs { display: none; }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(29, 29, 29, 0.6); display: flex; align-items: center;
+            justify-content: center; z-index: 1000; opacity: 0; visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s ease;
+        }
+
+        .modal-overlay.visible { opacity: 1; visibility: visible; }
+
+        .modal-popup {
+            background: var(--brand-white); padding: 25px; border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1); width: 90%;
+            max-width: 500px; /* Increased max-width for Pantone grid */
+            color: var(--brand-secondary-dark);
+        }
+        
+        .modal-popup h2 { margin-top: 0; margin-bottom: 20px; }
+        .modal-popup input[type="text"] {
+            width: calc(100% - 24px); padding: 12px; border: 1px solid #ccc;
+            border-radius: 8px; font-size: 16px; margin-bottom: 20px;
+        }
+        .modal-popup input[type="text"]:focus { outline: none; border-color: var(--brand-primary); }
+
+        /* Style the new controls inside the modal */
+        .modal-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            gap: 15px;
+        }
+        .modal-control-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .modal-control-group label { font-size: 14px; font-weight: 500; }
+        .modal-control-group select, .modal-control-group input[type="color"] {
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            padding: 5px;
+            font-size: 14px;
+        }
+        .modal-control-group input[type="color"] { width: 30px; height: 30px; padding: 2px; }
+
+        .modal-buttons { display: flex; gap: 10px; justify-content: flex-end; }
+        .modal-btn {
+            padding: 10px 20px; border-radius: 8px; border: none;
+            cursor: pointer; font-size: 14px; font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+        .modal-confirm-btn { background-color: var(--brand-primary); color: var(--brand-secondary-dark); }
+        .modal-confirm-btn:hover { background-color: #d19a36; }
+        .modal-cancel-btn { background-color: var(--brand-secondary-light); color: var(--brand-secondary-dark); }
+        .modal-cancel-btn:hover { background-color: #e2e0df; }
+        
+        /* --- START: Pantone Modal Styles --- */
+        #pantone-search {
+            width: 100%;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+            margin-bottom: 15px;
+        }
+
+        #pantone-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 10px;
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .pantone-swatch {
+            width: 100%;
+            padding-bottom: 100%; /* Creates a square aspect ratio */
+            height: 0;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 1px solid rgba(0,0,0,0.1);
+            transition: transform 0.1s ease;
+        }
+        
+        .pantone-swatch:hover {
+            transform: scale(1.05);
+            border-color: rgba(0,0,0,0.5);
+        }
+        
+        #pantone-close-btn {
+            margin-top: 20px;
+        }
+        /* --- END: Pantone Modal Styles --- */
+    </style>
+</head>
+<body>
+
+    <canvas id="editor-canvas" width="800" height="500"></canvas>
+
+    <div class="controls-wrapper">
+        <div class="controls">
+            <button id="upload-btn" class="modern-btn">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23495057' viewBox='0 0 256 256'%3E%3Cpath d='M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-42.06-42.07a16,16,0,0,0-22.62,0L136,132,93.66,89.66a16,16,0,0,0-22.62,0L40,120.75V56H216Zm-29.66,122.34a16,16,0,0,0-22.62-22.62L136,183.25l-11.59-11.59a16,16,0,0,0-22.62,0L40,200H71.25l22.41-22.4a16,16,0,0,0,22.62,0L152,189.25l50.34-50.34a16,16,0,0,0-22.62-22.62L164,131.59,134.34,101.93a16,16,0,0,0-22.62,22.62L144,156.75V200h43.25l28.41-28.4a16,16,0,0,0,0-22.62ZM88,104a12,12,0,1,1-12-12A12,12,0,0,1,88,104Z'%3E%3C/path%3E%3C/svg%3E" alt="Image Icon">
+                <span>Upload Image</span>
+            </button>
+            <button id="add-text-btn" class="modern-btn">
+                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23495057' viewBox='0 0 256 256'%3E%3Cpath d='M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,104a8,8,0,0,1-8,8H136v40a8,8,0,0,1-16,0V112H88a8,8,0,0,1,0-16h80a8,8,0,0,1,8,8Z'%3E%3C/path%3E%3C/svg%3E" alt="Add Text Icon">
+                <span>Add Text</span>
+            </button>
+            <button id="color-btn" class="modern-btn">
+                <div id="color-swatch" style="background-color: #ffffff;"></div>
+                <span>Tablecloth Color</span>
+            </button>
+            <button id="pantone-btn" class="modern-btn">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23495057' viewBox='0 0 256 256'%3E%3Cpath d='M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm-86,48a16,16,0,1,1-16,16A16,16,0,0,1,130,88Zm-48,0a16,16,0,1,1-16,16A16,16,0,0,1,82,88ZM82,168a16,16,0,1,1,16-16A16,16,0,0,1,82,168Zm48,0a16,16,0,1,1,16-16A16,16,0,0,1,130,168Zm48-48a16,16,0,1,1-16,16A16,16,0,0,1,178,120Z'%3E%3C/path%3E%3C/svg%3E" alt="Palette Icon">
+                <span>Pantone Colors</span>
+            </button>
+            </div>
+        <div class="download-wrapper">
+             <button id="download-btn" class="modern-btn primary-action-btn">Download Mockup</button>
+        </div>
+    </div>
+    <div class="hidden-inputs">
+        <input type="file" id="logo-upload" accept="image/png, image/jpeg, image/svg+xml">
+        <input type="color" id="color-picker" value="#ffffff">
+    </div>
+
+    <div id="text-modal" class="modal-overlay">
+        <div class="modal-popup">
+            <h2>Add Custom Text</h2>
+            <input type="text" id="modal-text-input" placeholder="Enter your text...">
+            
+            <div class="modal-controls">
+                <div class="modal-control-group">
+                    <label for="modal-font-family">Font:</label>
+                    <select id="modal-font-family">
+                        <option>Arial</option>
+                        <option>Lato</option>
+                        <option>Montserrat</option>
+                        <option>Oswald</option>
+                    </select>
+                </div>
+                <div class="modal-control-group">
+                    <label for="modal-text-color">Color:</label>
+                    <input type="color" id="modal-text-color" value="#1D1D1D">
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button id="modal-cancel-btn" class="modal-btn modal-cancel-btn">Cancel</button>
+                <button id="modal-confirm-btn" class="modal-btn modal-confirm-btn">Add Text</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="pantone-modal" class="modal-overlay">
+        <div class="modal-popup">
+            <h2>Pantone Colors</h2>
+            <input type="text" id="pantone-search" placeholder="Search by name or code (e.g., 186 PC)">
+            <div id="pantone-grid">
+                </div>
+            <div class="modal-buttons">
+                <button id="pantone-close-btn" class="modal-btn modal-cancel-btn">Close</button>
+            </div>
+        </div>
+    </div>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const canvas = new fabric.Canvas('editor-canvas', {
+            preserveObjectStacking: true
+        });
+
+        const targetArea = { left: 180, top: 230, width: 450, height: 120 };
+
+        // --- DELETE FUNCTIONALITY ---
+        const deleteIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='11' fill='%23E34F4F' stroke='white' stroke-width='1.5'/%3E%3Cpath d='M8 8 L16 16 M16 8 L8 16' stroke='white' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E";
+        const deleteImg = document.createElement('img');
+        deleteImg.src = deleteIcon;
+
+        function renderIcon(ctx, left, top, styleOverride, fabricObject) {
+            const size = this.cornerSize;
+            ctx.save();
+            ctx.translate(left, top);
+            ctx.rotate(fabric.util.degreesToRadians(fabricObject.angle));
+            ctx.drawImage(deleteImg, -size / 2, -size / 2, size, size);
+            ctx.restore();
+        }
+
+        function deleteObject(eventData, transform) {
+            const canvas = transform.target.canvas;
+            canvas.remove(transform.target);
+            canvas.requestRenderAll();
+            return true;
+        }
+
+        function addDeleteControl(obj) {
+            obj.controls.deleteControl = new fabric.Control({
+                x: 0.5, y: -0.5, offsetY: -16, offsetX: 16, cursorStyle: 'pointer',
+                mouseUpHandler: deleteObject,
+                render: renderIcon,
+                cornerSize: 24
+            });
+        }
+        
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Backspace' || e.key === 'Delete') {
+                if (document.activeElement.tagName === 'INPUT') return;
+                const activeObjects = canvas.getActiveObjects();
+                if (activeObjects.length > 0) {
+                    activeObjects.forEach(obj => canvas.remove(obj));
+                    canvas.discardActiveObject().requestRenderAll();
+                }
+            }
+        });
+
+        // --- CANVAS SETUP ---
+        fabric.Image.fromURL('tablecover-blank.png', (img) => {
+            img.scaleToWidth(canvas.getWidth());
+            canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+                originX: 'center', originY: 'center', left: canvas.getWidth() / 2, top: canvas.getHeight() / 2,
+            });
+        }, { crossOrigin: 'anonymous' });
+        
+        // --- UI EVENT LISTENERS ---
+
+        // UPLOAD IMAGE
+        const logoUploadInput = document.getElementById('logo-upload');
+        document.getElementById('upload-btn').addEventListener('click', () => logoUploadInput.click());
+        logoUploadInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (f) => {
+                fabric.Image.fromURL(f.target.result, (logoImg) => {
+                    const padding = 0.90;
+                    const paddedWidth = targetArea.width * padding;
+                    const paddedHeight = targetArea.height * padding;
+                    const scale = Math.min(paddedWidth / logoImg.width, paddedHeight / logoImg.height);
+                    
+                    logoImg.scale(scale);
+                    logoImg.set({
+                        left: targetArea.left + (targetArea.width / 2),
+                        top: targetArea.top + (targetArea.height / 2),
+                        originX: 'center', originY: 'center'
+                    });
+                    addDeleteControl(logoImg);
+                    canvas.add(logoImg).setActiveObject(logoImg).renderAll();
+                });
+            };
+            reader.readAsDataURL(file);
+            e.target.value = '';
+        });
+
+        // --- START: Text Modal Logic ---
+        const textModal = document.getElementById('text-modal');
+        const modalTextInput = document.getElementById('modal-text-input');
+        const modalFontFamily = document.getElementById('modal-font-family');
+        const modalTextColor = document.getElementById('modal-text-color');
+        
+        document.getElementById('add-text-btn').addEventListener('click', () => {
+            textModal.classList.add('visible');
+            modalTextInput.focus();
+        });
+
+        function hideTextModal() {
+            textModal.classList.remove('visible');
+        }
+        document.getElementById('modal-cancel-btn').addEventListener('click', hideTextModal);
+        textModal.addEventListener('click', (e) => {
+            if (e.target === textModal) { hideTextModal(); }
+        });
+
+        document.getElementById('modal-confirm-btn').addEventListener('click', () => {
+            const textString = modalTextInput.value;
+            if (textString) {
+                const text = new fabric.IText(textString, {
+                    fontFamily: modalFontFamily.value,
+                    fill: modalTextColor.value,
+                    fontSize: 40,
+                    stroke: '#ffffff',
+                    strokeWidth: 1,
+                    paintFirst: 'stroke',
+                });
+                addDeleteControl(text);
+                canvas.add(text).centerObject(text).setActiveObject(text).renderAll();
+                modalTextInput.value = ''; // Reset for next time
+                hideTextModal();
+            }
+        });
+
+        modalTextInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') { document.getElementById('modal-confirm-btn').click(); }
+        });
+        // --- END: Text Modal Logic ---
+
+        // --- START: REFACTORED COLOR LOGIC ---
+        const colorInput = document.getElementById('color-picker');
+        const colorSwatch = document.getElementById('color-swatch');
+
+        /**
+         * Applies a color to the tablecloth background image.
+         * @param {string} color - The hex color code (e.g., "#FFFFFF").
+         */
+        function applyTableclothColor(color) {
+            colorSwatch.style.backgroundColor = color;
+            const bgImage = canvas.backgroundImage;
+            if (!bgImage) return;
+
+            bgImage.filters = [];
+            if (color.toLowerCase() !== '#ffffff') {
+                // Apply a multiply filter to tint the image
+                bgImage.filters.push(new fabric.Image.filters.BlendColor({
+                    color: color,
+                    mode: 'multiply'
+                }));
+            }
+            bgImage.applyFilters();
+            canvas.renderAll();
+        }
+
+        // Original "Tablecloth Color" button
+        document.getElementById('color-btn').addEventListener('click', () => colorInput.click());
+        
+        // Original color picker input listener
+        colorInput.addEventListener('input', (e) => {
+            applyTableclothColor(e.target.value);
+        });
+        // --- END: REFACTORED COLOR LOGIC ---
+
+
+        // --- START: PANTONE MODAL LOGIC ---
+        const pantoneModal = document.getElementById('pantone-modal');
+        const pantoneGrid = document.getElementById('pantone-grid');
+        const pantoneSearch = document.getElementById('pantone-search');
+        let allPantoneColors = []; // Cache for searching
+
+        // Load Pantone colors from the JSON file
+        async function loadPantoneColors() {
+            try {
+                const response = await fetch('pantone_colors.json');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                allPantoneColors = await response.json();
+                
+                // Populate the grid
+                let swatchesHTML = '';
+                allPantoneColors.forEach(color => {
+                    swatchesHTML += `
+                        <div class="pantone-swatch"
+                             style="background-color: ${color.hex};"
+                             data-hex="${color.hex}"
+                             data-name="${color.name}"
+                             title="${color.name} (${color.hex})">
+                        </div>
+                    `;
+                });
+                pantoneGrid.innerHTML = swatchesHTML;
+            } catch (error) {
+                console.error('Error loading Pantone colors:', error);
+                pantoneGrid.innerHTML = '<p>Error loading colors. Please ensure pantone_colors.json is in the same folder.</p>';
+            }
+        }
+        
+        // Open the Pantone modal
+        document.getElementById('pantone-btn').addEventListener('click', () => {
+            pantoneModal.classList.add('visible');
+            pantoneSearch.focus();
+        });
+
+        // Close the Pantone modal
+        function hidePantoneModal() {
+            pantoneModal.classList.remove('visible');
+        }
+        document.getElementById('pantone-close-btn').addEventListener('click', hidePantoneModal);
+        pantoneModal.addEventListener('click', (e) => {
+            if (e.target === pantoneModal) { hidePantoneModal(); }
+        });
+
+        // Handle clicking on a Pantone swatch
+        pantoneGrid.addEventListener('click', (e) => {
+            if (e.target.classList.contains('pantone-swatch')) {
+                const hex = e.target.dataset.hex;
+                applyTableclothColor(hex);
+                hidePantoneModal();
+            }
+        });
+
+        // Handle searching/filtering
+        pantoneSearch.addEventListener('input', (e) => {
+            const searchTerm = e.target.value.toLowerCase();
+            const swatches = pantoneGrid.getElementsByClassName('pantone-swatch');
+            
+            Array.from(swatches).forEach(swatch => {
+                const name = swatch.dataset.name.toLowerCase();
+                if (name.includes(searchTerm)) {
+                    swatch.style.display = 'block';
+                } else {
+                    swatch.style.display = 'none';
+                }
+            });
+        });
+
+        // Load colors when the page is ready
+        loadPantoneColors();
+        // --- END: PANTONE MODAL LOGIC ---
+
+
+        // DOWNLOAD
+        document.getElementById('download-btn').addEventListener('click', () => {
+            canvas.discardActiveObject().renderAll();  
+            const link = document.createElement('a');
+            link.download = 'tablecover-mockup.png';
+            link.href = canvas.toDataURL({ format: 'png', quality: 1.0 });
+            link.click();
+        });
+    });
+    </script>
+
+</body>
+</html>
