@@ -173,7 +173,8 @@
 
         #pantone-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            /* Updated to be slightly larger to fit text */
+            grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
             gap: 10px;
             max-height: 400px;
             overflow-y: auto;
@@ -182,19 +183,47 @@
             border-radius: 8px;
         }
         
-        .pantone-swatch {
-            width: 100%;
-            padding-bottom: 100%; /* Creates a square aspect ratio */
-            height: 0;
+        /* NEW: This is the main card container */
+        .pantone-card {
+            position: relative;
+            aspect-ratio: 1 / 1; /* Modern way to make a square */
             border-radius: 6px;
             cursor: pointer;
             border: 1px solid rgba(0,0,0,0.1);
             transition: transform 0.1s ease;
+            overflow: hidden; /* Keeps label and bg inside rounded corners */
         }
         
-        .pantone-swatch:hover {
+        .pantone-card:hover {
             transform: scale(1.05);
             border-color: rgba(0,0,0,0.5);
+        }
+
+        /* NEW: This is just the background color */
+        .pantone-swatch-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            width: 100%; height: 100%;
+        }
+
+        /* NEW: This is the text overlay */
+        .pantone-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(2px); /* Modern blur effect */
+            color: var(--brand-secondary-dark);
+            font-size: 9px; /* Made smaller to fit more names */
+            font-weight: 600;
+            padding: 4px;
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* Adds '...' if name is too long */
+            box-sizing: border-box;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
         
         #pantone-close-btn {
@@ -456,12 +485,14 @@
                 // Populate the grid
                 let swatchesHTML = '';
                 allPantoneColors.forEach(color => {
+                    // UPDATED HTML structure for each swatch
                     swatchesHTML += `
-                        <div class="pantone-swatch"
-                             style="background-color: ${color.hex};"
+                        <div class="pantone-card"
                              data-hex="${color.hex}"
                              data-name="${color.name}"
                              title="${color.name} (${color.hex})">
+                            <div class="pantone-swatch-bg" style="background-color: ${color.hex};"></div>
+                            <div class="pantone-label">${color.name}</div>
                         </div>
                     `;
                 });
@@ -489,8 +520,10 @@
 
         // Handle clicking on a Pantone swatch
         pantoneGrid.addEventListener('click', (e) => {
-            if (e.target.classList.contains('pantone-swatch')) {
-                const hex = e.target.dataset.hex;
+            // UPDATED to find the parent .pantone-card
+            const card = e.target.closest('.pantone-card');
+            if (card) {
+                const hex = card.dataset.hex;
                 applyTableclothColor(hex);
                 hidePantoneModal();
             }
@@ -499,14 +532,15 @@
         // Handle searching/filtering
         pantoneSearch.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            const swatches = pantoneGrid.getElementsByClassName('pantone-swatch');
+            // UPDATED to search for .pantone-card elements
+            const cards = pantoneGrid.getElementsByClassName('pantone-card');
             
-            Array.from(swatches).forEach(swatch => {
-                const name = swatch.dataset.name.toLowerCase();
+            Array.from(cards).forEach(card => {
+                const name = card.dataset.name.toLowerCase();
                 if (name.includes(searchTerm)) {
-                    swatch.style.display = 'block';
+                    card.style.display = 'block';
                 } else {
-                    swatch.style.display = 'none';
+                    card.style.display = 'none';
                 }
             });
         });
