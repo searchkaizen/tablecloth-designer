@@ -107,6 +107,90 @@
 
         .hidden-inputs { display: none; }
         
+        /* --- START: Split Button & Dropdown Styles --- */
+        .split-btn-container {
+            display: flex;
+            position: relative; /* For dropdown positioning */
+        }
+        
+        #color-btn-main {
+            /* Style like .modern-btn but with rounded right corners removed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background-color: var(--brand-secondary-light);
+            border: 1px solid var(--brand-secondary-light);
+            border-radius: 8px 0 0 8px; /* Rounded left corners */
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--brand-secondary-dark);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+            border-right: 1px solid #dcdad9; /* Separator line */
+        }
+        
+        #color-btn-dropdown {
+             /* Style like .modern-btn but only for the arrow */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 8px;
+            background-color: var(--brand-secondary-light);
+            border: 1px solid var(--brand-secondary-light);
+            border-radius: 0 8px 8px 0; /* Rounded right corners */
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--brand-secondary-dark);
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+
+        #color-btn-main:hover, #color-btn-dropdown:hover {
+            background-color: #e2e0df;
+            border-color: #c9c7c6;
+        }
+        
+        #color-dropdown-menu {
+            display: none; /* Hidden by default */
+            position: absolute;
+            top: 100%; /* Position below the button */
+            left: 0;
+            z-index: 1001;
+            background-color: var(--brand-white);
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            min-width: 200px;
+            margin-top: 5px;
+        }
+
+        #color-dropdown-menu button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 15px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--brand-secondary-dark);
+        }
+
+        #color-dropdown-menu button:hover {
+            background-color: var(--brand-secondary-light);
+        }
+        
+        #color-dropdown-menu button:first-child { border-radius: 8px 8px 0 0; }
+        #color-dropdown-menu button:last-child { border-radius: 0 0 8px 8px; }
+        #color-dropdown-menu button:not(:last-child) { border-bottom: 1px solid #eee; }
+        
+        /* --- END: Split Button & Dropdown Styles --- */
+
+
         /* Modal Styles */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -246,14 +330,20 @@
                  <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23495057' viewBox='0 0 256 256'%3E%3Cpath d='M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,160H40V56H216V200ZM176,104a8,8,0,0,1-8,8H136v40a8,8,0,0,1-16,0V112H88a8,8,0,0,1,0-16h80a8,8,0,0,1,8,8Z'%3E%3C/path%3E%3C/svg%3E" alt="Add Text Icon">
                 <span>Add Text</span>
             </button>
-            <button id="color-btn" class="modern-btn">
-                <div id="color-swatch" style="background-color: #ffffff;"></div>
-                <span>Tablecloth Color</span>
-            </button>
-            <button id="pantone-btn" class="modern-btn">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23495057' viewBox='0 0 256 256'%3E%3Cpath d='M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm-86,48a16,16,0,1,1-16,16A16,16,0,0,1,130,88Zm-48,0a16,16,0,1,1-16,16A16,16,0,0,1,82,88ZM82,168a16,16,0,1,1,16-16A16,16,0,0,1,82,168Zm48,0a16,16,0,1,1,16-16A16,16,0,0,1,130,168Zm48-48a16,16,0,1,1-16,16A16,16,0,0,1,178,120Z'%3E%3C/path%3E%3C/svg%3E" alt="Palette Icon">
-                <span>Pantone Colors</span>
-            </button>
+            
+            <div class="split-btn-container">
+                <button id="color-btn-main">
+                    <div id="color-swatch" style="background-color: #ffffff;"></div>
+                    <span>Tablecloth Color</span>
+                </button>
+                <button id="color-btn-dropdown">
+                    <span>▼</span>
+                </button>
+                <div id="color-dropdown-menu">
+                    <button id="dropdown-item-custom">Custom Color (RGB/HEX)</button>
+                    <button id="dropdown-item-pantone">Pantone® Color Library</button>
+                </div>
+            </div>
             </div>
         <div class="download-wrapper">
              <button id="download-btn" class="modern-btn primary-action-btn">Download Mockup</button>
@@ -432,9 +522,13 @@
         });
         // --- END: Text Modal Logic ---
 
-        // --- START: REFACTORED COLOR LOGIC ---
+        // --- START: CONSOLIDATED COLOR LOGIC ---
         const colorInput = document.getElementById('color-picker');
         const colorSwatch = document.getElementById('color-swatch');
+        const colorBtnMain = document.getElementById('color-btn-main');
+        const colorBtnDropdown = document.getElementById('color-btn-dropdown');
+        const colorDropdownMenu = document.getElementById('color-dropdown-menu');
+        const pantoneModal = document.getElementById('pantone-modal');
 
         /**
          * Applies a color to the tablecloth background image.
@@ -457,18 +551,49 @@
             canvas.renderAll();
         }
 
-        // Original "Tablecloth Color" button
-        document.getElementById('color-btn').addEventListener('click', () => colorInput.click());
+        // --- Split Button Listeners ---
         
-        // Original color picker input listener
+        // Main button opens native picker
+        colorBtnMain.addEventListener('click', () => {
+            colorInput.click();
+        });
+
+        // Arrow button toggles the dropdown
+        colorBtnDropdown.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent window click from closing it immediately
+            colorDropdownMenu.style.display = colorDropdownMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // --- Dropdown Menu Item Listeners ---
+        
+        // "Custom Color" opens native picker
+        document.getElementById('dropdown-item-custom').addEventListener('click', () => {
+            colorInput.click();
+            colorDropdownMenu.style.display = 'none';
+        });
+        
+        // "Pantone" opens pantone modal
+        document.getElementById('dropdown-item-pantone').addEventListener('click', () => {
+            pantoneModal.classList.add('visible');
+            document.getElementById('pantone-search').focus();
+            colorDropdownMenu.style.display = 'none';
+        });
+
+        // Native color picker input listener
         colorInput.addEventListener('input', (e) => {
             applyTableclothColor(e.target.value);
         });
-        // --- END: REFACTORED COLOR LOGIC ---
+        
+        // Close dropdown if clicking elsewhere
+        window.addEventListener('click', () => {
+            if (colorDropdownMenu.style.display === 'block') {
+                colorDropdownMenu.style.display = 'none';
+            }
+        });
+        // --- END: CONSOLIDATED COLOR LOGIC ---
 
 
         // --- START: PANTONE MODAL LOGIC ---
-        const pantoneModal = document.getElementById('pantone-modal');
         const pantoneGrid = document.getElementById('pantone-grid');
         const pantoneSearch = document.getElementById('pantone-search');
         let allPantoneColors = []; // Cache for searching
@@ -485,7 +610,6 @@
                 // Populate the grid
                 let swatchesHTML = '';
                 allPantoneColors.forEach(color => {
-                    // UPDATED HTML structure for each swatch
                     swatchesHTML += `
                         <div class="pantone-card"
                              data-hex="${color.hex}"
@@ -503,12 +627,6 @@
             }
         }
         
-        // Open the Pantone modal
-        document.getElementById('pantone-btn').addEventListener('click', () => {
-            pantoneModal.classList.add('visible');
-            pantoneSearch.focus();
-        });
-
         // Close the Pantone modal
         function hidePantoneModal() {
             pantoneModal.classList.remove('visible');
@@ -520,7 +638,6 @@
 
         // Handle clicking on a Pantone swatch
         pantoneGrid.addEventListener('click', (e) => {
-            // UPDATED to find the parent .pantone-card
             const card = e.target.closest('.pantone-card');
             if (card) {
                 const hex = card.dataset.hex;
@@ -532,7 +649,6 @@
         // Handle searching/filtering
         pantoneSearch.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
-            // UPDATED to search for .pantone-card elements
             const cards = pantoneGrid.getElementsByClassName('pantone-card');
             
             Array.from(cards).forEach(card => {
