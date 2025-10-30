@@ -359,6 +359,22 @@
             margin-top: 20px;
         }
         /* --- END: Pantone Modal Styles --- */
+
+        /* --- START: New Button & Disclaimer Styles --- */
+        .download-wrapper {
+            display: flex; /* Make buttons side-by-side */
+            gap: 15px; /* Add space between buttons */
+            justify-content: center; /* Center the buttons */
+        }
+
+        .disclaimer-text {
+            font-size: 12px;
+            color: #6c757d; /* Muted text color */
+            text-align: center;
+            max-width: 450px; /* Constrain width */
+            margin-top: 10px; /* Space from buttons */
+        }
+        /* --- END: New Button & Disclaimer Styles --- */
     </style>
 </head>
 <body>
@@ -388,6 +404,7 @@
                 </button>
             </div>
         </div>
+    
         <div class="controls">
             <button id="upload-btn" class="modern-btn">
                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='%23495057' viewBox='0 0 256 256'%3E%3Cpath d='M216,40H40A16,16,0,0,0,24,56V200a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A16,16,0,0,0,216,40Zm0,16V158.75l-42.06-42.07a16,16,0,0,0-22.62,0L136,132,93.66,89.66a16,16,0,0,0-22.62,0L40,120.75V56H216Zm-29.66,122.34a16,16,0,0,0-22.62-22.62L136,183.25l-11.59-11.59a16,16,0,0,0-22.62,0L40,200H71.25l22.41-22.4a16,16,0,0,0,22.62,0L152,189.25l50.34-50.34a16,16,0,0,0-22.62-22.62L164,131.59,134.34,101.93a16,16,0,0,0-22.62,22.62L144,156.75V200h43.25l28.41-28.4a16,16,0,0,0,0-22.62ZM88,104a12,12,0,1,1-12-12A12,12,0,0,1,88,104Z'%3E%3C/path%3E%3C/svg%3E" alt="Image Icon">
@@ -412,11 +429,13 @@
                 </div>
             </div>
         </div>
+        
         <div class="download-wrapper">
              <button id="download-btn" class="modern-btn primary-action-btn">Download Mockup</button>
+             <button id="add-to-cart-btn" class="modern-btn primary-action-btn">Add to Cart</button>
         </div>
-        <p align="center">For complex artwork with multiple layers or patterns - please submit a mockup request and our design team will send it within 24 hours </p>
-    </div>
+        <p class="disclaimer-text">For complex artwork with multiple layers or patterns - please submit a mockup request and our design team will send it within 24 hours </p>
+        </div>
     <div class="hidden-inputs">
         <input type="file" id="logo-upload" accept="image/png, image/jpeg, image/svg+xml">
         <input type="color" id="color-picker" value="#ffffff">
@@ -431,19 +450,19 @@
                 <div class="modal-control-group">
                     <label for="modal-font-family">Font:</label>
                    <select id="modal-font-family">
-    <option>Arial</option>
-    <option>Lato</option>
-    <option>Montserrat</option>
-    <option>Oswald</option>
-    <option>Roboto</option>
-    <option>Poppins</option>
-    <option>Inter</option>
-    <option>Merriweather</option>
-    <option>Noto Sans</option>
-    <option>Playfair Display</option>
-    <option>Ubuntu</option>
-    <option>Source Sans Pro</option>
-</select>
+                        <option>Arial</option>
+                        <option>Lato</option>
+                        <option>Montserrat</option>
+                        <option>Oswald</option>
+                        <option>Roboto</option>
+                        <option>Poppins</option>
+                        <option>Inter</option>
+                        <option>Merriweather</option>
+                        <option>Noto Sans</option>
+                        <option>Playfair Display</option>
+                        <option>Ubuntu</option>
+                        <option>Source Sans Pro</option>
+                    </select>
                 </div>
                 <div class="modal-control-group">
                     <label for="modal-text-color">Color:</label>
@@ -776,18 +795,12 @@
         const contextualControls = document.getElementById('contextual-controls');
         const opacitySlider = document.getElementById('opacity-slider');
         
-        // --- BUG FIX ---
-        // We now check canvas.getActiveObject() instead of e.target
         function updateControls(e) {
             const activeObj = canvas.getActiveObject();
-
-            // If it's a single object (not a multi-selection)
             if (activeObj && activeObj.type !== 'activeSelection') {
-                // Set slider to match object's opacity (defaulting to 1)
                 opacitySlider.value = (activeObj.opacity === undefined ? 1 : activeObj.opacity) * 100;
                 contextualControls.classList.add('visible');
             } else {
-                // If it's a multi-selection or nothing is selected
                 contextualControls.classList.remove('visible');
             }
         }
@@ -800,9 +813,7 @@
             guideLineH.set({ visible: false });
             canvas.renderAll();
         });
-        // --- END BUG FIX ---
 
-        // Opacity Slider Listener
         opacitySlider.addEventListener('input', (e) => {
             const obj = canvas.getActiveObject();
             if (obj) {
@@ -811,7 +822,6 @@
             }
         });
         
-        // Layer Button Listeners
         document.getElementById('layer-front-btn').addEventListener('click', () => {
             const obj = canvas.getActiveObject();
             if (obj) canvas.bringToFront(obj);
@@ -842,6 +852,15 @@
             link.download = 'tablecover-mockup.png';
             link.href = canvas.toDataURL({ format: 'png', quality: 1.0 });
             link.click();
+        });
+        
+        // --- NEW: Add to Cart Button Alert ---
+        // You can replace this with your real e-commerce logic
+        document.getElementById('add-to-cart-btn').addEventListener('click', () => {
+            alert('This would add the design to your cart!');
+            // --- This is where you would get the JSON and send to server ---
+            // const designJSON = JSON.stringify(canvas.toJSON());
+            // console.log(designJSON);
         });
     });
     </script>
