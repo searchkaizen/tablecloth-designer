@@ -1,0 +1,1321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Definitive Buyer’s Guide: Rectangular Table Covers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-black: #1D1D1D;
+            --brand-white: #FFFFFF;
+            --brand-gold: #F1B241;
+            --brand-neutral: #EDE8E7;
+            --brand-muted: #64748B;
+            --technical-bg: #F5F2F0;
+            
+            /* Motion Discipline System */
+            --motion-duration: 150ms;
+            --motion-easing: cubic-bezier(0.25, 0, 0.5, 1);
+        }
+
+        html { 
+            font-size: 16px;
+            /* overflow-x hidden removed to fix sticky */
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Arimo', sans-serif;
+            color: var(--brand-black);
+            background: #F9F8F6;
+            line-height: 1.5;
+            
+            /* 1. Kill Top Padding to fix white gap */
+            padding: 0; 
+            padding-bottom: 3rem; 
+            
+            /* 2. Use Clip for overflow */
+            overflow-x: clip; 
+        }
+
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            
+            /* 3. Add side padding to Page container instead */
+            padding: 0 1.25rem; 
+        }
+
+        /* --- SCROLL OFFSET FIX --- */
+        section[id] {
+            scroll-margin-top: 120px; 
+        }
+
+        /* --- UNIFIED CARD STYLES --- */
+        .section-card {
+            background: var(--brand-white);
+            border: 1px solid var(--brand-neutral);
+            border-top: 6px solid var(--brand-gold);
+            padding: 3rem 2.5rem;
+        }
+
+        /* --- 1. FULL WIDTH HERO (The Breakout) --- */
+        header.hero {
+            background: var(--brand-black);
+            
+            /* LAYOUT: Break out of container */
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            
+            /* PADDING */
+            padding: 4rem 1.25rem 3rem;
+            
+            /* BORDER & ALIGNMENT */
+            border: none; 
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2;
+
+            /* THE FIX FOR WHITE GAP: */
+            overflow: hidden; 
+        }
+
+        header.hero h1 {
+            font-size: 42px;
+            line-height: 1.1;
+            margin: 0.5rem 0 1.25rem;
+            letter-spacing: -0.03em;
+            color: var(--brand-white);
+        }
+
+        /* --- 2. CINEMATIC SLIDER --- */
+        .comparison-slider {
+            position: relative;
+            width: 100%;
+            max-width: 1100px; /* Constrain width */
+            aspect-ratio: 21 / 9; 
+            overflow: hidden;
+            border-radius: 4px;
+            cursor: ew-resize;
+            user-select: none;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            
+            /* Centering */
+            margin-left: auto;
+            margin-right: auto;
+            
+            order: 1; 
+            margin-bottom: 2rem;
+        }
+
+        .comparison-slider img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+        }
+
+        .comparison-slider .img-before {
+            filter: grayscale(100%) brightness(0.9);
+            z-index: 1;
+            background: var(--brand-black);
+        }
+
+        .comparison-slider .img-after {
+            z-index: 2;
+            clip-path: inset(0 0 0 50%);
+            background: var(--technical-bg);
+        }
+
+        .slider-handle {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 4px;
+            background: var(--brand-white);
+            z-index: 10;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px rgba(0,0,0,0.4);
+        }
+
+        .slider-handle::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 56px;
+            height: 56px;
+            background: var(--brand-white);
+            border-radius: 50%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+
+        .slider-handle::after {
+            content: '◀ ▶';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--brand-black);
+            letter-spacing: 4px;
+            white-space: nowrap;
+            z-index: 11;
+        }
+
+        /* --- 3. HERO TEXT --- */
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            order: 2;
+        }
+
+        .hero-narrative {
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 650px;
+        }
+
+        /* --- TYPOGRAPHY & UTILS --- */
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            line-height: 1.1;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            margin: 0 0 1rem;
+        }
+
+        .step-num {
+            background: var(--brand-black);
+            color: var(--brand-gold);
+            width: 36px;
+            height: 36px;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        p { color: var(--brand-muted); margin: 0 0 1.5rem; font-size: 16px; line-height: 1.6; }
+
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+        /* --- CARD VISUAL STANDARDIZATION --- */
+        .sku-image-area, .mat-visual, .card-visual {
+            background: var(--technical-bg);
+            border-bottom: 1px solid var(--brand-neutral);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 1rem;
+            aspect-ratio: 4 / 3;
+            width: 100%;
+            height: auto; 
+        }
+
+        .sku-image-area {
+            aspect-ratio: 2 / 1;
+            padding: 1.5rem;
+        }
+
+        .fabric-photo, .card-visual img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block; 
+        }
+
+        .sku-placeholder-svg, img[src*="back-"], img[src*="front-panel"] {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* --- SECTION 1 SPECIFIC (Comparisons) --- */
+        .compare-box { padding: 0; border-radius: 2px; text-align: center; background: var(--brand-white); border: 1px solid; }
+        .compare-bad { border-color: var(--brand-neutral); }
+        .compare-good { border-color: var(--brand-gold); }
+        .compare-header { padding: 1rem 2rem; display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+        .compare-bad .compare-header { background-color: var(--brand-neutral); border-bottom: 1px solid var(--brand-neutral); }
+        .compare-good .compare-header { background-color: var(--brand-gold); border-bottom: 1px solid var(--brand-gold); }
+        .compare-title { margin: 0; color: var(--brand-black); font-weight: 700; font-size: 16px; }
+        .compare-content { padding: 2rem; }
+        .compare-desc { color: var(--brand-black); margin: 1rem 0 0; }
+        .status-icon { width: 24px; height: 24px; border-radius: 2px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background-color: var(--brand-black); }
+
+        .callout {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--brand-neutral);
+            color: var(--brand-black);
+        }
+        .callout h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 1rem;
+            position: relative;
+            padding-top: 1rem;
+        }
+        .callout h3::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60px;
+            height: 5px;
+            background: var(--brand-gold);
+            border-radius: 2px;
+        }
+
+        /* --- GENERIC CARD COMPONENTS --- */
+        .sku-card, .material-card, .option-card, .access-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: #fff;
+            border: 1px solid var(--brand-neutral);
+            border-radius: 2px;
+            transition: transform var(--motion-duration) var(--motion-easing),
+                        box-shadow var(--motion-duration) var(--motion-easing),
+                        border-color var(--motion-duration) var(--motion-easing);
+            position: relative;
+        }
+        .sku-card:hover, .material-card:hover, .option-card:hover, .access-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+            border-color: var(--brand-gold);
+        }
+        .sku-highlight, .material-highlight, .option-highlight, .access-highlight { border: 2px solid var(--brand-gold); box-shadow: 0 4px 20px rgba(0,0,0,0.05); z-index: 2; }
+        
+        .badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--brand-black);
+            color: var(--brand-gold);
+            padding: 4px 12px;
+            font-size: 12px;
+            border-radius: 2px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            white-space: nowrap;
+        }
+
+        .sku-header, .mat-header, .card-header { padding: 1.5rem 1.5rem 1rem; text-align: center; border-bottom: 1px solid #f1f5f9; background: #fff; }
+        .sku-title, .mat-title, .card-title { font-size: 1.25rem; font-weight: 700; margin: 0; line-height: 1.2; }
+        .sku-role, .mat-role, .card-role { display: block; font-size: 0.85rem; color: var(--brand-muted); margin-top: 0.25rem; font-weight: 400; font-style: italic; }
+
+        .sku-body, .mat-body, .card-body { padding: 1.25rem 1.5rem; flex-grow: 1; display: flex; flex-direction: column; }
+        .mat-desc, .card-desc { font-size: 0.95rem; color: var(--brand-muted); margin-bottom: 1rem; line-height: 1.5; min-height: 4em; }
+        
+        .use-case-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 700; color: var(--brand-gold); margin-bottom: 0.75rem; display: block; }
+        .use-case-list, .check-list { list-style: none; padding: 0; margin: 0; }
+        .use-case-list li, .check-list li { font-size: 0.95rem; color: var(--brand-black); padding-left: 1.25rem; position: relative; margin-bottom: 0.4rem; line-height: 1.5; }
+        .use-case-list li::before, .check-list li::before { content: "•"; color: var(--brand-muted); position: absolute; left: 0; font-weight: bold; }
+        .check-list li::before { color: var(--brand-gold); }
+
+        .sku-specs, .mat-specs, .card-specs { background: var(--technical-bg); border-top: 1px solid var(--brand-neutral); display: grid; padding: 0.75rem 0; border-radius: 0 0 2px 2px; }
+        .sku-specs, .card-specs { grid-template-columns: repeat(3, 1fr); }
+        .card-specs.two-col { grid-template-columns: 1fr 1fr; }
+        .mat-specs { grid-template-rows: repeat(3, 1fr); padding: 0; margin-top: auto; }
+        
+        .spec-item { display: flex; flex-direction: column; align-items: center; justify-content: center; border-right: 1px solid var(--brand-neutral); }
+        .spec-item:last-child { border-right: none; }
+        .spec-label { font-size: 0.75rem; color: var(--brand-muted); display: block; margin-bottom: 0.15rem; text-transform: uppercase; letter-spacing: 0.05em; }
+        .spec-value { font-size: 0.9rem; font-weight: 700; color: var(--brand-black); font-family: monospace; }
+        
+        .spec-row { display: flex; justify-content: space-between; padding: 0.75rem 1.25rem; border-bottom: 1px solid rgba(0,0,0,0.05); }
+        .spec-row:last-child { border-bottom: none; }
+        .spec-key { color: var(--brand-muted); }
+        .spec-val { font-weight: 700; color: var(--brand-black); text-align: right; }
+
+        .pro-tip { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(0,0,0,0.1); font-size: 14px; color: var(--brand-black); display: flex; gap: 0.75rem; align-items: center; }
+        .pro-tip a { color: var(--brand-black); text-decoration: underline; font-weight: 700; }
+
+        /* --- ART SECTION SPECIFIC --- */
+        .inspection-panel { display: flex; gap: 3rem; justify-content: center; align-items: flex-start; margin-top: 2.5rem; padding: 2rem 0; }
+        .lens-unit { display: flex; flex-direction: column; align-items: center; gap: 1rem; flex: 1; max-width: 320px; }
+        .lens-viewport { position: relative; width: 100%; aspect-ratio: 5/4; overflow: hidden; background: var(--technical-bg); }
+        .lens-viewport svg { width: 100%; height: 100%; }
+        .lens-label { text-align: center; }
+        .lens-title { font-size: 1rem; font-weight: 700; color: var(--brand-black); margin: 0 0 0.25rem; }
+        .lens-subtitle { font-size: 0.8rem; color: var(--brand-muted); font-style: italic; margin: 0; }
+        .lens-checks { display: flex; flex-direction: column; gap: 0.4rem; margin-top: 0.5rem; }
+        .check-item { font-size: 0.85rem; color: var(--brand-black); font-weight: 500; display: flex; align-items: center; gap: 0.5rem; }
+        .check-icon { color: var(--brand-gold); font-weight: bold; }
+        .lens-divider { width: 1px; background: var(--brand-neutral); align-self: stretch; margin: 1rem 0; }
+        .inspection-summary { display: flex; justify-content: center; gap: 3rem; padding: 1.25rem 2rem; background: var(--technical-bg); border: 1px solid var(--brand-neutral); border-radius: 2px; margin-top: 1.5rem; }
+        .summary-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; color: var(--brand-muted); }
+        .summary-item strong { color: var(--brand-black); }
+        .safety-net { margin-top: 2rem; background: var(--technical-bg); border: 1px dashed var(--brand-muted); padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; border-radius: 2px; }
+
+        /* --- STICKY TOC HUD (Fixed) --- */
+        .sticky-toc {
+            position: -webkit-sticky;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            
+            /* Visuals */
+            background: rgba(29, 29, 29, 0.98);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(241, 178, 65, 0.3);
+            border-bottom: 1px solid rgba(241, 178, 65, 0.2);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            
+            /* Layout */
+            margin-top: -1.5rem;
+            margin-bottom: 2rem;
+            
+            /* Breakout Logic */
+            width: 100vw;
+            margin-left: calc(50% - 50vw);
+            margin-right: calc(50% - 50vw);
+            
+            /* Padding Logic */
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+        }
+
+        .toc-list {
+            list-style: none;
+            margin: 0 auto; /* Center the container itself */
+            padding: 0 1.25rem; /* Default side padding */
+            display: flex;
+            gap: 1.5rem;
+            
+            /* Center Items Logic */
+            justify-content: center;
+            max-width: 1100px; /* Match page width so items align with grid */
+            
+            overflow-x: auto;
+            white-space: nowrap;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        .toc-list::-webkit-scrollbar { display: none; }
+
+        .toc-link {
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 0;
+            border-bottom: 2px solid transparent;
+            transition: color var(--motion-duration) var(--motion-easing),
+                        border-color var(--motion-duration) var(--motion-easing);
+            display: block;
+        }
+
+        .toc-link.active,
+        .toc-link:hover {
+            color: var(--brand-white);
+            border-bottom-color: var(--brand-gold);
+        }
+
+        /* --- CTA CARD --- */
+        .cta-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            padding: 3.5rem 3rem;
+            background: radial-gradient(circle at 30% 30%, rgba(241,178,65,0.12), transparent 60%), linear-gradient(135deg, #22252b, #1a1c21);
+            color: var(--brand-white);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-top: 6px solid var(--brand-gold);
+        }
+        .cta-copy { display: flex; flex-direction: column; gap: 1rem; }
+        .cta-copy h3 { margin: 0; font-size: 28px; line-height: 1.2; color: var(--brand-white); }
+        .cta-copy p { color: rgba(255,255,255,0.7); margin: 0; font-size: 15px; line-height: 1.6; }
+        .cta-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.85rem;
+            border-radius: 2px;
+            background: rgba(241,178,65,0.1);
+            border: 1px solid rgba(241,178,65,0.2);
+            color: var(--brand-gold);
+            font-weight: 700;
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            width: fit-content;
+        }
+        .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; margin-top: 0.5rem; }
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 6px;
+            border: none;
+            background: var(--brand-gold);
+            color: var(--brand-black);
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+            transition: box-shadow var(--motion-duration) var(--motion-easing),
+                        transform var(--motion-duration) var(--motion-easing);
+        }
+        .cta-button:hover {
+            transform: translateY(-1px);
+            animation: cta-glow 600ms var(--motion-easing) forwards;
+        }
+        @keyframes cta-glow {
+            0% { box-shadow: 0 10px 25px rgba(0,0,0,0.12), 0 0 0 0 rgba(241,178,65,0); }
+            50% { box-shadow: 0 10px 25px rgba(0,0,0,0.12), 0 0 20px 4px rgba(241,178,65,0.35); }
+            100% { box-shadow: 0 10px 25px rgba(0,0,0,0.12), 0 0 12px 2px rgba(241,178,65,0.2); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .cta-button:hover {
+                animation: none;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.12), 0 0 12px 2px rgba(241,178,65,0.2);
+            }
+        }
+        .cta-secondary { color: rgba(255,255,255,0.6); font-size: 0.9rem; }
+        .cta-secondary a { color: var(--brand-gold); font-weight: 700; text-decoration: none; border-bottom: 1px solid rgba(241,178,65,0.3); transition: border-color var(--motion-duration) var(--motion-easing); }
+        .cta-secondary a:hover { border-color: var(--brand-gold); }
+        .cta-visual {
+            position: relative;
+            background: rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 4px;
+            aspect-ratio: auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .cta-visual video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Mobile Tweaks */
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 900px) {
+            /* Mobile scroll offset adjustment */
+            section[id] {
+                scroll-margin-top: 100px;
+            }
+
+            /* 1. KILL THE DOUBLE PADDING */
+            /* Remove side padding from body completely so .page controls it */
+            body { 
+                padding: 0; 
+                padding-bottom: 2rem; 
+            }
+
+            /* 2. TIGHTEN THE PAGE MARGINS */
+            /* Reduce side gap to just 0.5rem (8px). 
+               This gives you a "Full Bleed" feel while keeping a tiny safety edge. */
+            .page {
+                padding: 0 0.5rem; 
+            }
+
+            /* 3. MAXIMIZE CARD SPACE */
+            /* Reduce internal card padding so text goes closer to the edge */
+            .section-card { 
+                padding: 2rem 1.25rem; 
+            }
+            
+            /* 4. HERO ADJUSTMENTS */
+            header.hero { 
+                padding: 3rem 1rem; 
+            }
+            header.hero h1 { 
+                font-size: 32px; 
+            }
+            
+            /* 5. SLIDER & TOC TWEAKS */
+            .comparison-slider { 
+                aspect-ratio: 4 / 3; 
+                width: 100%; 
+            }
+            .comparison-labels { 
+                padding: 0.75rem; 
+            }
+            .comparison-label { 
+                font-size: 0.7rem; 
+                padding: 0.35rem 0.6rem; 
+            }
+            
+            /* 6. GRID STACKING */
+            h2 { font-size: 26px; flex-wrap: wrap; }
+            .grid-2, .grid-3 { grid-template-columns: 1fr; }
+            .inspection-panel { flex-direction: column; align-items: center; gap: 2rem; }
+            .lens-divider { width: 60%; height: 1px; }
+            .inspection-summary { flex-direction: column; gap: 1rem; align-items: center; }
+            .cta-card { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; gap: 2rem; }
+            
+            /* 7. TOC ALIGNMENT */
+            .sticky-toc {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+        }
+
+        /* Only switch to left-align scrolling on actual PHONES (<600px) */
+        /* Tablets (600px - 900px) will now stay centered like Desktop */
+        @media (max-width: 600px) {
+            .toc-list {
+                justify-content: flex-start; /* Start from left so users can scroll */
+                padding-left: 0.5rem; /* Visual indent for small screens */
+                padding-right: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page">
+        <header class="hero">
+            <div class="comparison-slider" id="comparisonSlider">
+                <img src="img/blank.png" alt="Plain table cover - lost in the crowd" class="img-before" />
+                <img src="img/branded.png" alt="Branded table cover - commanding presence" class="img-after" />
+                <div class="slider-handle" id="sliderHandle"></div>
+            </div>
+
+            <div class="hero-content">
+                <div class="eyebrow">Resource Library</div>
+                <h1><span style="color: var(--brand-gold);">Buyer's Guide</span> to <span style="text-decoration: underline; text-decoration-color: var(--brand-gold); text-decoration-thickness: 4px; text-underline-offset: 4px;">Tablecloths</span> for Professional Displays</h1>
+                <p class="hero-narrative">Table covers feel like a safe decision until you see them on site. Logos read smaller than expected. Fabric behaves differently under lighting. Coverage exposes what should stay hidden. This happens a lot, and it usually comes down to a few early choices.</p>
+            </div>
+        </header>
+
+        <nav class="sticky-toc" aria-label="Table of Contents">
+            <ul class="toc-list">
+                <li><a href="#size-fit" class="toc-link active">1. Size & Fit</a></li>
+                <li><a href="#fabric" class="toc-link">2. Fabric</a></li>
+                <li><a href="#brand-coverage" class="toc-link">3. Coverage</a></li>
+                <li><a href="#access" class="toc-link">4. Access</a></li>
+                <li><a href="#art-color" class="toc-link">5. Art & Color</a></li>
+            </ul>
+        </nav>
+
+        <section class="section-card" id="size-fit">
+            <h2><span class="step-num">1</span> Size &amp; Fit: Getting the Drop Right</h2>
+            <p>Fit is usually where problems start. A cover that’s too short exposes legs and storage. One that’s too long becomes a tripping hazard. Most professional setups use a drop that sits just off the floor for a clean look that still works in busy spaces.</p>
+
+            <div class="grid-2">
+                <div class="compare-box compare-bad">
+                    <div class="compare-header">
+                        <div class="status-icon">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-white);" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        </div>
+                        <span class="compare-title">The "high-water" mark</span>
+                    </div>
+                    <div class="compare-content">
+                        <svg viewBox="0 0 200 150" style="width: 100%; height: auto;" aria-hidden="true">
+                            <line x1="0" y1="138" x2="200" y2="138" style="stroke: var(--brand-neutral);" stroke-width="2" />
+                            <line x1="22" y1="63" x2="22" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                            <line x1="178" y1="63" x2="178" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                            <path d="M20 60 L180 60 L188 106 L12 106 Z" style="fill: var(--brand-neutral); stroke: var(--brand-black);" stroke-width="2" stroke-linejoin="miter" stroke-dasharray="4 3" />
+                            <rect x="19" y="55" width="162" height="6" style="fill: var(--brand-black);" />
+                        </svg>
+                        <p class="compare-desc">Using a 4 ft cover on a 6 ft table exposes legs and storage boxes. Looks unprepared.</p>
+                    </div>
+                </div>
+
+                <div class="compare-box compare-good">
+                    <div class="compare-header">
+                        <div class="status-icon" style="background: var(--brand-white);">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-gold);" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </div>
+                        <span class="compare-title">The perfect drop</span>
+                    </div>
+                    <div class="compare-content">
+                        <svg viewBox="0 0 200 150" style="width: 100%; height: auto;" aria-hidden="true">
+                            <line x1="0" y1="138" x2="200" y2="138" style="stroke: var(--brand-neutral);" stroke-width="2" />
+                            <line x1="22" y1="63" x2="22" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                            <line x1="178" y1="63" x2="178" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                            <path d="M20 60 L180 60 L190 130 L10 130 Z" style="fill: var(--brand-gold); stroke: var(--brand-gold);" stroke-width="2" stroke-linejoin="miter" />
+                            <rect x="19" y="55" width="162" height="6" style="fill: var(--brand-black);" />
+                        </svg>
+                        <p class="compare-desc">Standard 30 in drop hovers 1 in off the floor. Hides messy cords and boxes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="callout">
+                <h3>Select Your Table Standard</h3>
+                <p>Professional displays start with predictable foundations. Don't guess the dimensions; choose the standard that matches the table provided by your venue.</p>
+
+                <div class="grid-3">
+                    <article class="sku-card">
+                        <div class="sku-header">
+                            <h4 class="sku-title">Standard 4 ft</h4>
+                            <span class="sku-role">The Compact Choice</span>
+                        </div>
+                        <div class="sku-image-area">
+                            <svg class="sku-placeholder-svg" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <line x1="0" y1="138" x2="200" y2="138" style="stroke: var(--brand-neutral);" stroke-width="2" />
+                                <line x1="54" y1="68" x2="54" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                                <line x1="146" y1="68" x2="146" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                                <path d="M52 64 L148 64 L156 130 L44 130 Z" style="fill: var(--brand-gold); stroke: var(--brand-gold);" stroke-width="2" stroke-linejoin="miter" />
+                                <text x="100" y="108" text-anchor="middle" style="fill: var(--brand-black);" font-size="14" font-weight="900" letter-spacing="0.05em">4 FT</text>
+                                <rect x="51" y="60" width="98" height="6" style="fill: var(--brand-black);" />
+                            </svg>
+                        </div>
+                        <div class="sku-body">
+                            <span class="use-case-label">Ideal Environments</span>
+                            <ul class="use-case-list">
+                                <li>Recruiting &amp; Job Fairs</li>
+                                <li>Registration Kiosks</li>
+                                <li>Tight Booth Spaces</li>
+                            </ul>
+                        </div>
+                        <div class="sku-specs">
+                            <div class="spec-item"><span class="spec-label">Length</span><span class="spec-value">48"</span></div>
+                            <div class="spec-item"><span class="spec-label">Width</span><span class="spec-value">24"</span></div>
+                            <div class="spec-item"><span class="spec-label">Height</span><span class="spec-value">29"</span></div>
+                        </div>
+                    </article>
+
+                    <article class="sku-card sku-highlight">
+                        <div class="badge">Most Common</div>
+                        <div class="sku-header">
+                            <h4 class="sku-title">Standard 6 ft</h4>
+                            <span class="sku-role">The Industry Standard</span>
+                        </div>
+                        <div class="sku-image-area">
+                            <svg class="sku-placeholder-svg" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <line x1="0" y1="138" x2="200" y2="138" style="stroke: var(--brand-neutral);" stroke-width="2" />
+                                <line x1="30" y1="68" x2="30" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                                <line x1="170" y1="68" x2="170" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                                <path d="M28 64 L172 64 L180 130 L20 130 Z" style="fill: var(--brand-gold); stroke: var(--brand-gold);" stroke-width="2" stroke-linejoin="miter" />
+                                <text x="100" y="108" text-anchor="middle" style="fill: var(--brand-black);" font-size="14" font-weight="900" letter-spacing="0.05em">6 FT</text>
+                                <rect x="27" y="60" width="146" height="6" style="fill: var(--brand-black);" />
+                            </svg>
+                        </div>
+                        <div class="sku-body">
+                            <span class="use-case-label">Ideal Environments</span>
+                            <ul class="use-case-list">
+                                <li>Standard 10x10 Booths</li>
+                                <li>Conference Displays</li>
+                                <li>Product Demos</li>
+                            </ul>
+                        </div>
+                        <div class="sku-specs">
+                            <div class="spec-item"><span class="spec-label">Length</span><span class="spec-value">72"</span></div>
+                            <div class="spec-item"><span class="spec-label">Width</span><span class="spec-value">30"</span></div>
+                            <div class="spec-item"><span class="spec-label">Height</span><span class="spec-value">29"</span></div>
+                        </div>
+                    </article>
+
+                    <article class="sku-card">
+                        <div class="sku-header">
+                            <h4 class="sku-title">Standard 8 ft</h4>
+                            <span class="sku-role">The Wide Format</span>
+                        </div>
+                        <div class="sku-image-area">
+                            <svg class="sku-placeholder-svg" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <line x1="0" y1="138" x2="200" y2="138" style="stroke: var(--brand-neutral);" stroke-width="2" />
+                                <line x1="6" y1="68" x2="6" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                                <line x1="194" y1="68" x2="194" y2="138" style="stroke: var(--brand-black);" stroke-width="6" stroke-linecap="butt"/>
+                                <path d="M4 64 L196 64 L204 130 L-4 130 Z" style="fill: var(--brand-gold); stroke: var(--brand-gold);" stroke-width="2" stroke-linejoin="miter" />
+                                <text x="100" y="108" text-anchor="middle" style="fill: var(--brand-black);" font-size="14" font-weight="900" letter-spacing="0.05em">8 FT</text>
+                                <rect x="3" y="60" width="194" height="6" style="fill: var(--brand-black);" />
+                            </svg>
+                        </div>
+                        <div class="sku-body">
+                            <span class="use-case-label">Ideal Environments</span>
+                            <ul class="use-case-list">
+                                <li>Catering &amp; Buffet Lines</li>
+                                <li>Wide Inventory Displays</li>
+                                <li>Multi-person Check-in</li>
+                            </ul>
+                        </div>
+                        <div class="sku-specs">
+                            <div class="spec-item"><span class="spec-label">Length</span><span class="spec-value">96"</span></div>
+                            <div class="spec-item"><span class="spec-label">Width</span><span class="spec-value">30"</span></div>
+                            <div class="spec-item"><span class="spec-label">Height</span><span class="spec-value">29"</span></div>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="pro-tip">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-black);" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                    </svg>
+                    <span><strong>Venue tip:</strong> Not sure if you'll get a 6 ft or 8 ft table? <a href="#">See our Convertible Covers</a> that adjust to fit both.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card" id="fabric">
+            <h2><span class="step-num">2</span> Fabric: Environment Dictates Material</h2>
+            <p>Fabric choice is not just about aesthetics; it is about lighting and environment. A glossy fabric will create glare in photography, while a lightweight fabric cannot withstand outdoor wind. Select the material that aligns with where your table will actually live.</p>
+
+            <div class="grid-3">
+                <article class="material-card">
+                    <div class="mat-header">
+                        <h4 class="mat-title">Spandex</h4>
+                        <span class="mat-role">The Modern Stretch</span>
+                    </div>
+                    <div class="mat-visual">
+                        <img src="img/fabric-spandex.png" alt="Spandex fabric stretched over edge showing characteristic sheen and wrinkle-free surface" class="fabric-photo">
+                    </div>
+                    <div class="mat-body">
+                        <p class="mat-desc">A tension fabric that contours to the table legs. It eliminates wrinkles entirely, making it the superior choice for frequent travel.</p>
+                        <ul class="use-case-list">
+                            <li>Best for Traveling Reps</li>
+                            <li>Best for Tech Brands</li>
+                            <li>Sculpted silhouette</li>
+                        </ul>
+                    </div>
+                    <div class="mat-specs">
+                        <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Slight Sheen</span></div>
+                        <div class="spec-row"><span class="spec-key">Wrinkle Res.</span><span class="spec-val">Excellent (100%)</span></div>
+                        <div class="spec-row"><span class="spec-key">Environment</span><span class="spec-val">Indoor / Light Wind</span></div>
+                    </div>
+                </article>
+
+                <article class="material-card material-highlight">
+                    <div class="badge">Industry Standard</div>
+                    <div class="mat-header">
+                        <h4 class="mat-title">300D Polyester</h4>
+                        <span class="mat-role">The Professional Matte</span>
+                    </div>
+                    <div class="mat-visual">
+                        <img src="img/fabric-300d-polyester.png" alt="Close-up macro view of 300D polyester fabric showing matte basket weave texture" class="fabric-photo">
+                    </div>
+                    <div class="mat-body">
+                        <p class="mat-desc">A tightly woven canvas-style fabric. It absorbs stage lighting rather than reflecting it, ensuring your logo remains legible in photos.</p>
+                        <ul class="use-case-list">
+                            <li>Best for Trade Shows</li>
+                            <li>Best for Press Conferences</li>
+                            <li>Sharp, structured drape</li>
+                        </ul>
+                    </div>
+                    <div class="mat-specs">
+                        <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Matte (No Glare)</span></div>
+                        <div class="spec-row"><span class="spec-key">Wrinkle Res.</span><span class="spec-val">Moderate</span></div>
+                        <div class="spec-row"><span class="spec-key">Environment</span><span class="spec-val">Indoor Only</span></div>
+                    </div>
+                </article>
+
+                <article class="material-card">
+                    <div class="mat-header">
+                        <h4 class="mat-title">600D Polyester</h4>
+                        <span class="mat-role">The Outdoor Shield</span>
+                    </div>
+                    <div class="mat-visual">
+                        <img src="img/fabric-600d-polyester.png" alt="600D polyester fabric with water droplets beading on surface showing heavy-duty texture" class="fabric-photo">
+                    </div>
+                    <div class="mat-body">
+                        <p class="mat-desc">Double the weight of standard polyester with a PU coating. Designed to stay in place during wind and repel water during light rain.</p>
+                        <ul class="use-case-list">
+                            <li>Best for Outdoor Festivals</li>
+                            <li>Best for Food Service</li>
+                            <li>Water &amp; UV Resistant</li>
+                        </ul>
+                    </div>
+                    <div class="mat-specs">
+                        <div class="spec-row"><span class="spec-key">Finish</span><span class="spec-val">Semi-Matte / Texture</span></div>
+                        <div class="spec-row"><span class="spec-key">Wrinkle Res.</span><span class="spec-val">Moderate</span></div>
+                        <div class="spec-row"><span class="spec-key">Environment</span><span class="spec-val">All Weather</span></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section-card" id="brand-coverage">
+            <h2><span class="step-num">3</span> Brand Coverage: Defining Your Impact</h2>
+            <p>Your coverage choice determines how much "voice" your table has in the room. Do you need a polite introduction or an immersive brand experience? This decision dictates not just the look, but the manufacturing method we use.</p>
+
+            <div class="grid-2">
+                <article class="option-card">
+                    <div class="card-header">
+                        <h4 class="card-title">Front Panel Print</h4>
+                        <span class="card-role">The "Badge" Approach</span>
+                    </div>
+                    <div class="card-visual">
+                        <img src="img/front-panel-print.png" alt="Front panel print table cover showing logo restricted to front area" class="visual-content">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">A budget-conscious choice where your logo is heat-applied to the front visual area. The rest of the table remains the stock fabric color (usually white or black).</p>
+                        <ul class="check-list">
+                            <li>Best for Simple Logo Recognition</li>
+                            <li>Lower Cost / Faster Production</li>
+                            <li>Limited background colors</li>
+                        </ul>
+                    </div>
+                    <div class="card-specs">
+                        <div class="spec-item"><span class="spec-label">Print Area</span><span class="spec-value">Front Only</span></div>
+                        <div class="spec-item"><span class="spec-label">Method</span><span class="spec-value">Dye Sublimation</span></div>
+                        <div class="spec-item"><span class="spec-label">Bg Color</span><span class="spec-value">Stock Only</span></div>
+                    </div>
+                </article>
+
+                <article class="option-card option-highlight">
+                    <div class="badge">Maximum Visibility</div>
+                    <div class="card-header">
+                        <h4 class="card-title">All-Over Print</h4>
+                        <span class="card-role">The "Wrapper" Approach</span>
+                    </div>
+                    <div class="card-visual">
+                        <img src="img/all-over-print.png" alt="All-over print table cover with edge-to-edge branding" class="visual-content">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">We start with white fabric and dye it edge-to-edge. This allows for specific PMS color matching, background patterns, and branding on the sides and top.</p>
+                        <ul class="check-list">
+                            <li>Best for Immersive Branding</li>
+                            <li>Full 360° Visibility</li>
+                            <li>Unrestricted design/colors</li>
+                        </ul>
+                    </div>
+                    <div class="card-specs">
+                        <div class="spec-item"><span class="spec-label">Print Area</span><span class="spec-value">Entire Surface</span></div>
+                        <div class="spec-item"><span class="spec-label">Method</span><span class="spec-value">Dye Sublimation</span></div>
+                        <div class="spec-item"><span class="spec-label">Bg Color</span><span class="spec-value">Any (PMS)</span></div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="pro-tip">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-black)" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                </svg>
+                <span><strong>Brand Safety:</strong> Worried about matching your official "Corporate Blue"? <a href="#">Read our Color Matching Guide</a> to see how we hit specific Pantone targets.</span>
+            </div>
+        </section>
+
+        <section class="section-card" id="access">
+            <h2><span class="step-num">4</span> Access: Defining the Workspace</h2>
+            <p>A table isn't just a display; it is a workstation. Your team needs to sit comfortably, access inventory, and store personal items. Your choice of backing determines the functionality of the booth for the people working behind it.</p>
+
+            <div class="grid-3">
+                <article class="access-card">
+                    <div class="card-header">
+                        <h4 class="card-title">Open Back</h4>
+                        <span class="card-role">The "Seated" Choice</span>
+                    </div>
+                    <div class="card-visual">
+                        <img src="img/back-open.png" alt="Open Back Table Cover" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">The fabric stops at the top edge on the rear side. This allows staff to sit behind the table with full legroom and provides instant access to boxes under the table.</p>
+                        <ul class="use-case-list">
+                            <li>Registration Desks</li>
+                            <li>Long Conferences</li>
+                            <li>High-Volume Storage</li>
+                        </ul>
+                    </div>
+                    <div class="card-specs two-col">
+                        <div class="spec-item"><span class="spec-label">Coverage</span><span class="spec-value">3-Sided</span></div>
+                        <div class="spec-item"><span class="spec-label">Access</span><span class="spec-value">Instant</span></div>
+                    </div>
+                </article>
+
+                <article class="access-card">
+                    <div class="card-header">
+                        <h4 class="card-title">Closed Back</h4>
+                        <span class="card-role">The "360" Choice</span>
+                    </div>
+                    <div class="card-visual">
+                        <img src="img/back-closed.png" alt="Closed Back Table Cover" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">The fabric extends to the floor on all four sides. This is essential if your table is positioned in the middle of a room where the back is visible to traffic.</p>
+                        <ul class="use-case-list">
+                            <li>Island Booths</li>
+                            <li>Product Demos</li>
+                            <li>Buffet Lines</li>
+                        </ul>
+                    </div>
+                    <div class="card-specs two-col">
+                        <div class="spec-item"><span class="spec-label">Coverage</span><span class="spec-value">4-Sided</span></div>
+                        <div class="spec-item"><span class="spec-label">Access</span><span class="spec-value">Lift to Access</span></div>
+                    </div>
+                </article>
+
+                <article class="access-card access-highlight">
+                    <div class="badge">Most Versatile</div>
+                    <div class="card-header">
+                        <h4 class="card-title">Zipper Back</h4>
+                        <span class="card-role">The "Hybrid" Choice</span>
+                    </div>
+                    <div class="card-visual">
+                        <img src="img/back-zipper.png" alt="Zipper Back Table Cover" style="width: 100%; height: 100%; object-fit: contain;">
+                    </div>
+                    <div class="card-body">
+                        <p class="card-desc">The appearance of a closed back with the utility of an open back. Vertical zippers on the rear corners allow you to seal the table for a clean look or open it for access.</p>
+                        <ul class="use-case-list">
+                            <li>High-Traffic Booths</li>
+                            <li>Secure Inventory Storage</li>
+                            <li>Tech Setups (Cable Routing)</li>
+                        </ul>
+                    </div>
+                    <div class="card-specs two-col">
+                        <div class="spec-item"><span class="spec-label">Coverage</span><span class="spec-value">4-Sided</span></div>
+                        <div class="spec-item"><span class="spec-label">Access</span><span class="spec-value">Zippered Slit</span></div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="pro-tip">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--brand-black)" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span><strong>Security Tip:</strong> A zipper back allows you to "close up shop" during lunch breaks, keeping valuable electronics or swag out of plain sight.</span>
+            </div>
+        </section>
+
+        <section class="section-card" id="art-color">
+            <h2><span class="step-num">5</span> Art &amp; Color: How We Protect Your Brand</h2>
+            <p>Before any fabric is cut, our art team reviews your files against two critical standards. Most print issues (blurry text or wrong colors) happen because the input file wasn't built for large-format manufacturing. Here is what we check for to ensure your brand travels safely from screen to reality.</p>
+
+            <div class="inspection-panel">
+                <div class="lens-unit">
+                    <div class="lens-viewport">
+                        <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <defs>
+                                <pattern id="pixelPatternVector" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+                                    <rect width="8" height="8" fill="#F5F2F0"/>
+                                    <rect x="0" y="0" width="4" height="4" fill="#E2E8F0"/>
+                                    <rect x="4" y="4" width="4" height="4" fill="#E2E8F0"/>
+                                </pattern>
+                                <clipPath id="sharpZone">
+                                    <circle cx="150" cy="120" r="75"/>
+                                </clipPath>
+                                <filter id="lensShadow" x="-20%" y="-20%" width="140%" height="140%">
+                                    <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.15"/>
+                                </filter>
+                            </defs>
+                            
+                            <rect x="0" y="0" width="300" height="240" fill="url(#pixelPatternVector)"/>
+                            
+                            <path d="M30 188 Q 98 75, 150 120 T 270 68" stroke="#CBD5E1" stroke-width="15" fill="none" opacity="0.5"/>
+                            <path d="M30 188 Q 98 75, 150 120 T 270 68" style="stroke: var(--brand-muted);" stroke-width="6" fill="none" stroke-dasharray="9 6" opacity="0.6"/>
+                            
+                            <g filter="url(#lensShadow)">
+                                <circle cx="150" cy="120" r="75" style="fill: var(--brand-white); stroke: var(--brand-gold);" stroke-width="3"/>
+                            </g>
+                            
+                            <g clip-path="url(#sharpZone)">
+                                <path d="M30 188 Q 98 75, 150 120 T 270 68" style="stroke: var(--brand-black);" stroke-width="6" fill="none" stroke-linecap="round"/>
+                                <rect x="146" y="116" width="8" height="8" fill="#fff" stroke="#F1B241" stroke-width="2"/>
+                                <rect x="94" y="71" width="8" height="8" fill="#fff" stroke="#1D1D1D" stroke-width="2"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="lens-label">
+                        <h4 class="lens-title">Vector Resolution</h4>
+                        <p class="lens-subtitle">Infinitely scalable paths</p>
+                        <div class="lens-checks">
+                            <div class="check-item"><span class="check-icon">✓</span> .AI, .EPS, .PDF</div>
+                            <div class="check-item"><span class="check-icon">✓</span> Text as outlines</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lens-divider"></div>
+
+                <div class="lens-unit">
+                    <div class="lens-viewport">
+                        <svg viewBox="0 0 300 240" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <defs>
+                                <pattern id="pixelPatternPMS" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+                                    <rect width="8" height="8" fill="#F5F2F0"/>
+                                    <rect x="0" y="0" width="4" height="4" fill="#E2E8F0"/>
+                                    <rect x="4" y="4" width="4" height="4" fill="#E2E8F0"/>
+                                </pattern>
+                                <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
+                                    <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.1"/>
+                                </filter>
+                            </defs>
+                            
+                            <rect x="0" y="0" width="300" height="240" fill="url(#pixelPatternPMS)"/>
+                            
+                            <g filter="url(#cardShadow)">
+                                <rect x="40" y="40" width="220" height="160" rx="4" style="fill: var(--brand-white); stroke: var(--brand-neutral);" stroke-width="1"/>
+                            </g>
+                            
+                            <rect x="55" y="55" width="190" height="85" style="fill: var(--brand-gold);" rx="2"/>
+                            
+                            <text x="60" y="175" font-family="monospace" font-size="22" style="fill: var(--brand-black);" font-weight="bold" letter-spacing="-0.02em">PMS 123 C</text>
+                            <text x="60" y="195" font-family="Arimo, sans-serif" font-size="11" style="fill: var(--brand-muted); letter-spacing: 0.05em; text-transform: uppercase;">Solid Coated Standard</text>
+                            
+                            <circle cx="225" cy="175" r="16" fill="#1D1D1D"/>
+                            <path d="M219 175 L223 179 L231 171" stroke="#F1B241" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                    <div class="lens-label">
+                        <h4 class="lens-title">Pantone Precision</h4>
+                        <p class="lens-subtitle">Manufacturing coordinate</p>
+                        <div class="lens-checks">
+                            <div class="check-item"><span class="check-icon">✓</span> Solid Coated standard</div>
+                            <div class="check-item"><span class="check-icon">✓</span> Consistent output</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inspection-summary">
+                <div class="summary-item"><span style="color: var(--brand-gold); font-weight: bold;">●</span><span><strong>Vector art</strong> stays sharp at any scale</span></div>
+                <div class="summary-item"><span style="color: var(--brand-gold); font-weight: bold;">●</span><span><strong>PMS codes</strong> ensure exact color matching</span></div>
+            </div>
+
+            <div class="safety-net">
+                <div style="flex-shrink:0; margin-top: 2px;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-muted);" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                </div>
+                <div>
+                    <strong style="display:block; color: var(--brand-black); margin-bottom: 0.25rem;">What if I don't have these files?</strong>
+                    <span style="color: var(--brand-muted); font-size: 0.95rem;">Don't worry. Submit what you have. If your art doesn't meet these standards, our team will flag it and help you convert or redraw logos before we proceed to print.</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-card cta-card">
+            <div class="cta-copy">
+                <div class="cta-chip">Custom Quote</div>
+                <h3>Specify your table cover</h3>
+                <p>Provide your table size, event environment, and branding requirements. We will return with exact specifications, pricing, and a print-ready proof for approval before production. We can also send a printed swatch kit with all three fabrics if you want to review materials before finalizing specifications.</p>
+                <div class="cta-actions">
+                    <a class="cta-button" href="#">Start My RFQ</a>
+                    <span class="cta-secondary">Prefer to talk? <a href="#">Book a 15-minute call</a></span>
+                </div>
+            </div>
+            <div class="cta-visual" style="position: relative;">
+                <video id="ctaVideo" autoplay muted playsinline onended="this.currentTime=0;">
+                    <source src="https://cdn.shopify.com/videos/c/o/v/de52d987ea6c4298b97c95680f954e09.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+                <button id="playPauseBtn" onclick="togglePlayPause()" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(29, 29, 29, 0.8); border: none; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; display: none; transition: background 150ms cubic-bezier(0.25, 0, 0.5, 1), transform 150ms cubic-bezier(0.25, 0, 0.5, 1);">
+                    <svg id="playIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-gold); margin-left: 3px;" stroke-width="2">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <svg id="pauseIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-gold); display: none;" stroke-width="2">
+                        <line x1="6" y1="4" x2="6" y2="20"></line>
+                        <line x1="18" y1="4" x2="18" y2="20"></line>
+                    </svg>
+                </button>
+            </div>
+            <script>
+                const video = document.getElementById('ctaVideo');
+                const playPauseBtn = document.getElementById('playPauseBtn');
+                const playIcon = document.getElementById('playIcon');
+                const pauseIcon = document.getElementById('pauseIcon');
+
+                function togglePlayPause() {
+                    if (video.paused) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                }
+
+                video.addEventListener('play', function() {
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'block';
+                });
+
+                video.addEventListener('pause', function() {
+                    playIcon.style.display = 'block';
+                    pauseIcon.style.display = 'none';
+                });
+
+                // Show button on hover
+                video.parentElement.addEventListener('mouseenter', function() {
+                    playPauseBtn.style.display = 'flex';
+                    playPauseBtn.style.alignItems = 'center';
+                    playPauseBtn.style.justifyContent = 'center';
+                });
+
+                video.parentElement.addEventListener('mouseleave', function() {
+                    playPauseBtn.style.display = 'none';
+                });
+
+                playPauseBtn.addEventListener('mouseenter', function() {
+                    this.style.background = 'rgba(29, 29, 29, 0.95)';
+                    this.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                });
+
+                playPauseBtn.addEventListener('mouseleave', function() {
+                    this.style.background = 'rgba(29, 29, 29, 0.8)';
+                    this.style.transform = 'translate(-50%, -50%) scale(1)';
+                });
+            </script>
+        </section>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.toc-link');
+            const tocList = document.querySelector('.toc-list'); // Get the container
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-10% 0px -80% 0px', // Adjusted triggers to feel more natural
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        navLinks.forEach(link => link.classList.remove('active'));
+                        
+                        const id = entry.target.getAttribute('id');
+                        const activeLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                        
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                            
+                            // THE FIX: Manual container scroll instead of scrollIntoView
+                            // This ensures the main window scroll is NEVER touched.
+                            const linkLeft = activeLink.offsetLeft;
+                            const linkWidth = activeLink.offsetWidth;
+                            const listWidth = tocList.offsetWidth;
+                            
+                            // Calculate center position
+                            const scrollPos = linkLeft - (listWidth / 2) + (linkWidth / 2);
+                            
+                            tocList.scrollTo({
+                                left: scrollPos,
+                                behavior: 'smooth'
+                            });
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+
+    <script>
+        (function() {
+            const slider = document.getElementById('comparisonSlider');
+            const handle = document.getElementById('sliderHandle');
+            const afterImage = slider.querySelector('.img-after');
+            const labelBefore = slider.querySelector('.label-before');
+            const labelAfter = slider.querySelector('.label-after');
+            
+            let isDragging = false;
+            
+            function updateSlider(x) {
+                const rect = slider.getBoundingClientRect();
+                let percentage = ((x - rect.left) / rect.width) * 100;
+                percentage = Math.max(0, Math.min(100, percentage));
+                
+                handle.style.left = percentage + '%';
+                afterImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+                
+                // Fade out left labels when slider moves left (showing more "before")
+                const leftOpacity = Math.min(1, percentage / 20);
+                if (labelBefore) labelBefore.style.opacity = leftOpacity;
+                
+                // Fade out right labels when slider moves right (showing more "after")
+                const rightOpacity = Math.min(1, (100 - percentage) / 20);
+                if (labelAfter) labelAfter.style.opacity = rightOpacity;
+            }
+            
+            function startDrag(e) {
+                isDragging = true;
+                slider.style.cursor = 'grabbing';
+                updateSlider(e.type.includes('touch') ? e.touches[0].clientX : e.clientX);
+            }
+            
+            function drag(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                updateSlider(e.type.includes('touch') ? e.touches[0].clientX : e.clientX);
+            }
+            
+            function endDrag() {
+                isDragging = false;
+                slider.style.cursor = 'ew-resize';
+            }
+            
+            // Mouse events
+            slider.addEventListener('mousedown', startDrag);
+            window.addEventListener('mousemove', drag);
+            window.addEventListener('mouseup', endDrag);
+            
+            // Touch events
+            slider.addEventListener('touchstart', startDrag, { passive: true });
+            window.addEventListener('touchmove', drag, { passive: false });
+            window.addEventListener('touchend', endDrag);
+            
+            // Click to jump
+            slider.addEventListener('click', function(e) {
+                updateSlider(e.clientX);
+            });
+            
+            // Keyboard navigation (arrow keys)
+            slider.setAttribute('tabindex', '0');
+            slider.addEventListener('keydown', function(e) {
+                const rect = slider.getBoundingClientRect();
+                const currentPercent = (parseFloat(handle.style.left) || 50);
+                let newPercent = currentPercent;
+                
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    newPercent = Math.max(0, currentPercent - 2);
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    newPercent = Math.min(100, currentPercent + 2);
+                }
+                
+                if (newPercent !== currentPercent) {
+                    const newX = rect.left + (rect.width * newPercent / 100);
+                    updateSlider(newX);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
