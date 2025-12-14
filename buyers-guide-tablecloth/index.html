@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Definitive Buyer’s Guide: Rectangular Table Covers</title>
+    <meta name="description" content="A professional buyer's guide for custom table covers. Compare fabrics, sizes, and fitting options for trade shows and events.">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400;500;700&display=swap" rel="stylesheet">
@@ -23,7 +25,6 @@
 
         html { 
             font-size: 16px;
-            /* overflow-x hidden removed to fix sticky */
         }
 
         * { box-sizing: border-box; }
@@ -34,12 +35,8 @@
             color: var(--brand-black);
             background: #F9F8F6;
             line-height: 1.5;
-            
-            /* 1. Kill Top Padding to fix white gap */
             padding: 0; 
             padding-bottom: 3rem; 
-            
-            /* 2. Use Clip for overflow */
             overflow-x: clip; 
         }
 
@@ -49,8 +46,6 @@
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
-            
-            /* 3. Add side padding to Page container instead */
             padding: 0 1.25rem; 
         }
 
@@ -67,27 +62,22 @@
             padding: 3rem 2.5rem;
         }
 
-        /* --- 1. FULL WIDTH HERO (The Breakout) --- */
+        /* --- 1. FULL WIDTH HERO --- */
         header.hero {
-            background: var(--brand-black);
+            background: var(--brand-black); /* Kept solid black per instruction */
             
             /* LAYOUT: Break out of container */
             width: 100vw;
             margin-left: calc(50% - 50vw);
             margin-right: calc(50% - 50vw);
             
-            /* PADDING */
             padding: 4rem 1.25rem 3rem;
-            
-            /* BORDER & ALIGNMENT */
             border: none; 
             margin-bottom: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             z-index: 2;
-
-            /* THE FIX FOR WHITE GAP: */
             overflow: hidden; 
         }
 
@@ -103,18 +93,15 @@
         .comparison-slider {
             position: relative;
             width: 100%;
-            max-width: 1100px; /* Constrain width */
+            max-width: 1100px;
             aspect-ratio: 21 / 9; 
             overflow: hidden;
             border-radius: 4px;
             cursor: ew-resize;
             user-select: none;
             box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-            
-            /* Centering */
             margin-left: auto;
             margin-right: auto;
-            
             order: 1; 
             margin-bottom: 2rem;
         }
@@ -252,7 +239,11 @@
             display: block; 
         }
 
-        .sku-placeholder-svg, img[src*="back-"], img[src*="front-panel"] {
+        /* CRITICAL FIX: Added img[src*="all-over"] to ensure legs are not cut off per assets.md */
+        .sku-placeholder-svg, 
+        img[src*="back-"], 
+        img[src*="front-panel"],
+        img[src*="all-over"] {
             width: 100%;
             height: 100%;
             object-fit: contain;
@@ -380,46 +371,35 @@
         .summary-item strong { color: var(--brand-black); }
         .safety-net { margin-top: 2rem; background: var(--technical-bg); border: 1px dashed var(--brand-muted); padding: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; border-radius: 2px; }
 
-        /* --- STICKY TOC HUD (Fixed) --- */
+        /* --- STICKY TOC HUD --- */
         .sticky-toc {
             position: -webkit-sticky;
             position: sticky;
             top: 0;
             z-index: 100;
-            
-            /* Visuals */
             background: rgba(29, 29, 29, 0.98);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-top: 1px solid rgba(241, 178, 65, 0.3);
             border-bottom: 1px solid rgba(241, 178, 65, 0.2);
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-            
-            /* Layout */
             margin-top: -1.5rem;
             margin-bottom: 2rem;
-            
-            /* Breakout Logic */
             width: 100vw;
             margin-left: calc(50% - 50vw);
             margin-right: calc(50% - 50vw);
-            
-            /* Padding Logic */
             padding-top: 0.75rem;
             padding-bottom: 0.75rem;
         }
 
         .toc-list {
             list-style: none;
-            margin: 0 auto; /* Center the container itself */
-            padding: 0 1.25rem; /* Default side padding */
+            margin: 0 auto;
+            padding: 0 1.25rem;
             display: flex;
             gap: 1.5rem;
-            
-            /* Center Items Logic */
             justify-content: center;
-            max-width: 1100px; /* Match page width so items align with grid */
-            
+            max-width: 1100px;
             overflow-x: auto;
             white-space: nowrap;
             scrollbar-width: none;
@@ -441,8 +421,7 @@
             display: block;
         }
 
-        .toc-link.active,
-        .toc-link:hover {
+        .toc-link.active, .toc-link:hover {
             color: var(--brand-white);
             border-bottom-color: var(--brand-gold);
         }
@@ -531,87 +510,35 @@
             display: block;
         }
 
-        /* Mobile Tweaks */
         /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 900px) {
-            /* Mobile scroll offset adjustment */
-            section[id] {
-                scroll-margin-top: 100px;
-            }
-
-            /* 1. KILL THE DOUBLE PADDING */
-            /* Remove side padding from body completely so .page controls it */
-            body { 
-                padding: 0; 
-                padding-bottom: 2rem; 
-            }
-
-            /* 2. TIGHTEN THE PAGE MARGINS */
-            /* Reduce side gap to just 0.5rem (8px). 
-               This gives you a "Full Bleed" feel while keeping a tiny safety edge. */
-            .page {
-                padding: 0 0.5rem; 
-            }
-
-            /* 3. MAXIMIZE CARD SPACE */
-            /* Reduce internal card padding so text goes closer to the edge */
-            .section-card { 
-                padding: 2rem 1.25rem; 
-            }
-            
-            /* 4. HERO ADJUSTMENTS */
-            header.hero { 
-                padding: 3rem 1rem; 
-            }
-            header.hero h1 { 
-                font-size: 32px; 
-            }
-            
-            /* 5. SLIDER & TOC TWEAKS */
-            .comparison-slider { 
-                aspect-ratio: 4 / 3; 
-                width: 100%; 
-            }
-            .comparison-labels { 
-                padding: 0.75rem; 
-            }
-            .comparison-label { 
-                font-size: 0.7rem; 
-                padding: 0.35rem 0.6rem; 
-            }
-            
-            /* 6. GRID STACKING */
+            section[id] { scroll-margin-top: 100px; }
+            body { padding: 0; padding-bottom: 2rem; }
+            .page { padding: 0 0.5rem; }
+            .section-card { padding: 2rem 1.25rem; }
+            header.hero { padding: 3rem 1rem; }
+            header.hero h1 { font-size: 32px; }
+            .comparison-slider { aspect-ratio: 4 / 3; width: 100%; }
             h2 { font-size: 26px; flex-wrap: wrap; }
             .grid-2, .grid-3 { grid-template-columns: 1fr; }
             .inspection-panel { flex-direction: column; align-items: center; gap: 2rem; }
             .lens-divider { width: 60%; height: 1px; }
             .inspection-summary { flex-direction: column; gap: 1rem; align-items: center; }
             .cta-card { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; gap: 2rem; }
-            
-            /* 7. TOC ALIGNMENT */
-            .sticky-toc {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
+            .sticky-toc { padding-left: 1rem; padding-right: 1rem; }
         }
 
-        /* Only switch to left-align scrolling on actual PHONES (<600px) */
-        /* Tablets (600px - 900px) will now stay centered like Desktop */
         @media (max-width: 600px) {
-            .toc-list {
-                justify-content: flex-start; /* Start from left so users can scroll */
-                padding-left: 0.5rem; /* Visual indent for small screens */
-                padding-right: 0.5rem;
-            }
+            .toc-list { justify-content: flex-start; padding-left: 0.5rem; padding-right: 0.5rem; }
         }
     </style>
 </head>
 <body>
     <div class="page">
         <header class="hero">
-            <div class="comparison-slider" id="comparisonSlider">
-                <img src="img/blank.png" alt="Plain table cover - lost in the crowd" class="img-before" />
-                <img src="img/branded.png" alt="Branded table cover - commanding presence" class="img-after" />
+            <div class="comparison-slider" id="comparisonSlider" role="slider" aria-label="Before and After Branding Comparison" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50">
+                <img src="img/blank.png" alt="Plain table cover - lost in the crowd" class="img-before" width="1600" height="900" />
+                <img src="img/branded.png" alt="Branded table cover - commanding presence" class="img-after" width="1600" height="900" />
                 <div class="slider-handle" id="sliderHandle"></div>
             </div>
 
@@ -640,7 +567,7 @@
                 <div class="compare-box compare-bad">
                     <div class="compare-header">
                         <div class="status-icon">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-white);" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-white);" stroke-width="3" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
                                 <line x1="18" y1="6" x2="6" y2="18"></line>
                                 <line x1="6" y1="6" x2="18" y2="18"></line>
                             </svg>
@@ -662,7 +589,7 @@
                 <div class="compare-box compare-good">
                     <div class="compare-header">
                         <div class="status-icon" style="background: var(--brand-white);">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-gold);" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-gold);" stroke-width="6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"></polyline>
                             </svg>
                         </div>
@@ -800,7 +727,7 @@
                         <span class="mat-role">The Modern Stretch</span>
                     </div>
                     <div class="mat-visual">
-                        <img src="img/fabric-spandex.png" alt="Spandex fabric stretched over edge showing characteristic sheen and wrinkle-free surface" class="fabric-photo">
+                        <img src="img/fabric-spandex.png" alt="Spandex fabric stretched over edge showing characteristic sheen and wrinkle-free surface" class="fabric-photo" width="800" height="600">
                     </div>
                     <div class="mat-body">
                         <p class="mat-desc">A tension fabric that contours to the table legs. It eliminates wrinkles entirely, making it the superior choice for frequent travel.</p>
@@ -824,7 +751,7 @@
                         <span class="mat-role">The Professional Matte</span>
                     </div>
                     <div class="mat-visual">
-                        <img src="img/fabric-300d-polyester.png" alt="Close-up macro view of 300D polyester fabric showing matte basket weave texture" class="fabric-photo">
+                        <img src="img/fabric-300d-polyester.png" alt="Close-up macro view of 300D polyester fabric showing matte basket weave texture" class="fabric-photo" width="800" height="600">
                     </div>
                     <div class="mat-body">
                         <p class="mat-desc">A tightly woven canvas-style fabric. It absorbs stage lighting rather than reflecting it, ensuring your logo remains legible in photos.</p>
@@ -847,7 +774,7 @@
                         <span class="mat-role">The Outdoor Shield</span>
                     </div>
                     <div class="mat-visual">
-                        <img src="img/fabric-600d-polyester.png" alt="600D polyester fabric with water droplets beading on surface showing heavy-duty texture" class="fabric-photo">
+                        <img src="img/fabric-600d-polyester.png" alt="600D polyester fabric with water droplets beading on surface showing heavy-duty texture" class="fabric-photo" width="800" height="600">
                     </div>
                     <div class="mat-body">
                         <p class="mat-desc">Double the weight of standard polyester with a PU coating. Designed to stay in place during wind and repel water during light rain.</p>
@@ -877,7 +804,7 @@
                         <span class="card-role">The "Badge" Approach</span>
                     </div>
                     <div class="card-visual">
-                        <img src="img/front-panel-print.png" alt="Front panel print table cover showing logo restricted to front area" class="visual-content">
+                        <img src="img/front-panel-print.png" alt="Front panel print table cover showing logo restricted to front area" class="visual-content" width="800" height="600">
                     </div>
                     <div class="card-body">
                         <p class="card-desc">A budget-conscious choice where your logo is heat-applied to the front visual area. The rest of the table remains the stock fabric color (usually white or black).</p>
@@ -901,7 +828,7 @@
                         <span class="card-role">The "Wrapper" Approach</span>
                     </div>
                     <div class="card-visual">
-                        <img src="img/all-over-print.png" alt="All-over print table cover with edge-to-edge branding" class="visual-content">
+                        <img src="img/all-over-print.png" alt="All-over print table cover with edge-to-edge branding" class="visual-content" width="800" height="600">
                     </div>
                     <div class="card-body">
                         <p class="card-desc">We start with white fabric and dye it edge-to-edge. This allows for specific PMS color matching, background patterns, and branding on the sides and top.</p>
@@ -940,7 +867,7 @@
                         <span class="card-role">The "Seated" Choice</span>
                     </div>
                     <div class="card-visual">
-                        <img src="img/back-open.png" alt="Open Back Table Cover" style="width: 100%; height: 100%; object-fit: contain;">
+                        <img src="img/back-open.png" alt="Open Back Table Cover" width="800" height="600" style="object-fit: contain;">
                     </div>
                     <div class="card-body">
                         <p class="card-desc">The fabric stops at the top edge on the rear side. This allows staff to sit behind the table with full legroom and provides instant access to boxes under the table.</p>
@@ -962,7 +889,7 @@
                         <span class="card-role">The "360" Choice</span>
                     </div>
                     <div class="card-visual">
-                        <img src="img/back-closed.png" alt="Closed Back Table Cover" style="width: 100%; height: 100%; object-fit: contain;">
+                        <img src="img/back-closed.png" alt="Closed Back Table Cover" width="800" height="600" style="object-fit: contain;">
                     </div>
                     <div class="card-body">
                         <p class="card-desc">The fabric extends to the floor on all four sides. This is essential if your table is positioned in the middle of a room where the back is visible to traffic.</p>
@@ -985,7 +912,7 @@
                         <span class="card-role">The "Hybrid" Choice</span>
                     </div>
                     <div class="card-visual">
-                        <img src="img/back-zipper.png" alt="Zipper Back Table Cover" style="width: 100%; height: 100%; object-fit: contain;">
+                        <img src="img/back-zipper.png" alt="Zipper Back Table Cover" width="800" height="600" style="object-fit: contain;">
                     </div>
                     <div class="card-body">
                         <p class="card-desc">The appearance of a closed back with the utility of an open back. Vertical zippers on the rear corners allow you to seal the table for a clean look or open it for access.</p>
@@ -1129,11 +1056,11 @@
                 </div>
             </div>
             <div class="cta-visual" style="position: relative;">
-                <video id="ctaVideo" autoplay muted playsinline onended="this.currentTime=0;">
+                <video id="ctaVideo" autoplay muted playsinline loop onended="this.currentTime=0;">
                     <source src="https://cdn.shopify.com/videos/c/o/v/de52d987ea6c4298b97c95680f954e09.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
-                <button id="playPauseBtn" onclick="togglePlayPause()" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(29, 29, 29, 0.8); border: none; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; display: none; transition: background 150ms cubic-bezier(0.25, 0, 0.5, 1), transform 150ms cubic-bezier(0.25, 0, 0.5, 1);">
+                <button id="playPauseBtn" aria-label="Pause Video" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(29, 29, 29, 0.8); border: none; border-radius: 50%; width: 60px; height: 60px; cursor: pointer; display: none; transition: background 150ms cubic-bezier(0.25, 0, 0.5, 1), transform 150ms cubic-bezier(0.25, 0, 0.5, 1);">
                     <svg id="playIcon" width="24" height="24" viewBox="0 0 24 24" fill="none" style="stroke: var(--brand-gold); margin-left: 3px;" stroke-width="2">
                         <polygon points="5 3 19 12 5 21 5 3"></polygon>
                     </svg>
@@ -1144,48 +1071,56 @@
                 </button>
             </div>
             <script>
-                const video = document.getElementById('ctaVideo');
-                const playPauseBtn = document.getElementById('playPauseBtn');
-                const playIcon = document.getElementById('playIcon');
-                const pauseIcon = document.getElementById('pauseIcon');
+                // Wrapped in Listener to prevent Global Namespace pollution
+                document.addEventListener('DOMContentLoaded', () => {
+                    const video = document.getElementById('ctaVideo');
+                    const playPauseBtn = document.getElementById('playPauseBtn');
+                    const playIcon = document.getElementById('playIcon');
+                    const pauseIcon = document.getElementById('pauseIcon');
 
-                function togglePlayPause() {
-                    if (video.paused) {
-                        video.play();
-                    } else {
-                        video.pause();
+                    function togglePlayPause() {
+                        if (video.paused) {
+                            video.play();
+                            playPauseBtn.setAttribute('aria-label', 'Pause Video');
+                        } else {
+                            video.pause();
+                            playPauseBtn.setAttribute('aria-label', 'Play Video');
+                        }
                     }
-                }
 
-                video.addEventListener('play', function() {
-                    playIcon.style.display = 'none';
-                    pauseIcon.style.display = 'block';
-                });
+                    // Attach event to button
+                    playPauseBtn.addEventListener('click', togglePlayPause);
 
-                video.addEventListener('pause', function() {
-                    playIcon.style.display = 'block';
-                    pauseIcon.style.display = 'none';
-                });
+                    video.addEventListener('play', function() {
+                        playIcon.style.display = 'none';
+                        pauseIcon.style.display = 'block';
+                    });
 
-                // Show button on hover
-                video.parentElement.addEventListener('mouseenter', function() {
-                    playPauseBtn.style.display = 'flex';
-                    playPauseBtn.style.alignItems = 'center';
-                    playPauseBtn.style.justifyContent = 'center';
-                });
+                    video.addEventListener('pause', function() {
+                        playIcon.style.display = 'block';
+                        pauseIcon.style.display = 'none';
+                    });
 
-                video.parentElement.addEventListener('mouseleave', function() {
-                    playPauseBtn.style.display = 'none';
-                });
+                    // Show button on hover
+                    video.parentElement.addEventListener('mouseenter', function() {
+                        playPauseBtn.style.display = 'flex';
+                        playPauseBtn.style.alignItems = 'center';
+                        playPauseBtn.style.justifyContent = 'center';
+                    });
 
-                playPauseBtn.addEventListener('mouseenter', function() {
-                    this.style.background = 'rgba(29, 29, 29, 0.95)';
-                    this.style.transform = 'translate(-50%, -50%) scale(1.1)';
-                });
+                    video.parentElement.addEventListener('mouseleave', function() {
+                        playPauseBtn.style.display = 'none';
+                    });
 
-                playPauseBtn.addEventListener('mouseleave', function() {
-                    this.style.background = 'rgba(29, 29, 29, 0.8)';
-                    this.style.transform = 'translate(-50%, -50%) scale(1)';
+                    playPauseBtn.addEventListener('mouseenter', function() {
+                        this.style.background = 'rgba(29, 29, 29, 0.95)';
+                        this.style.transform = 'translate(-50%, -50%) scale(1.1)';
+                    });
+
+                    playPauseBtn.addEventListener('mouseleave', function() {
+                        this.style.background = 'rgba(29, 29, 29, 0.8)';
+                        this.style.transform = 'translate(-50%, -50%) scale(1)';
+                    });
                 });
             </script>
         </section>
@@ -1195,11 +1130,11 @@
         document.addEventListener('DOMContentLoaded', () => {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.toc-link');
-            const tocList = document.querySelector('.toc-list'); // Get the container
+            const tocList = document.querySelector('.toc-list'); 
 
             const observerOptions = {
                 root: null,
-                rootMargin: '-10% 0px -80% 0px', // Adjusted triggers to feel more natural
+                rootMargin: '-10% 0px -80% 0px', 
                 threshold: 0
             };
 
@@ -1214,13 +1149,11 @@
                         if (activeLink) {
                             activeLink.classList.add('active');
                             
-                            // THE FIX: Manual container scroll instead of scrollIntoView
-                            // This ensures the main window scroll is NEVER touched.
                             const linkLeft = activeLink.offsetLeft;
                             const linkWidth = activeLink.offsetWidth;
                             const listWidth = tocList.offsetWidth;
                             
-                            // Calculate center position
+                            // Center position
                             const scrollPos = linkLeft - (listWidth / 2) + (linkWidth / 2);
                             
                             tocList.scrollTo({
@@ -1254,11 +1187,14 @@
                 handle.style.left = percentage + '%';
                 afterImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
                 
-                // Fade out left labels when slider moves left (showing more "before")
+                // A11y: Update value state
+                slider.setAttribute('aria-valuenow', Math.round(percentage));
+
+                // Fade out left labels when slider moves left
                 const leftOpacity = Math.min(1, percentage / 20);
                 if (labelBefore) labelBefore.style.opacity = leftOpacity;
                 
-                // Fade out right labels when slider moves right (showing more "after")
+                // Fade out right labels when slider moves right
                 const rightOpacity = Math.min(1, (100 - percentage) / 20);
                 if (labelAfter) labelAfter.style.opacity = rightOpacity;
             }
