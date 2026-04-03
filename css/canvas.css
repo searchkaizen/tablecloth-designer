@@ -1,0 +1,234 @@
+/*
+  All panel positioning and dimensions must be provided by layout builder.
+  No hardcoded pixel geometry allowed here.
+*/
+
+/* Main Canvas Area */
+        .main-canvas {
+            background: #e8e8e8;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .canvas-window {
+            background: transparent;
+            padding: 0;
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .preview-3d,
+        .preview-2d {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .preview-3d {
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .preview-3d.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .preview-2d {
+            z-index: 5;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .preview-2d.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .template-wrapper {
+            position: relative;
+            overflow: visible;
+            --layout-base-width: 0px;
+            --layout-base-height: 0px;
+        }
+
+        .canvas-scale {
+            transform-origin: top left;
+            padding: 15px 35px;
+            display: inline-block;
+        }
+
+        .template-canvas {
+            position: relative;
+            width: var(--layout-net-width);
+            height: var(--layout-net-height);
+        }
+
+/* Panel Grid */
+        .panel-grid {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .panel {
+            position: absolute;
+            left: var(--panel-x);
+            top: var(--panel-y);
+            width: var(--panel-w);
+            height: var(--panel-h);
+            background: #fff;
+            overflow: hidden; /* Clip Fabric.js canvas to content area */
+            /* Borders set per-panel: solid on outer edges, none on inner (fold line) edges */
+        }
+
+        /* Fabric.js canvas-container wrapper - position within panel content area */
+        .panel .canvas-container {
+            position: absolute !important;
+            top: 0 !important;
+            left: 0 !important;
+            z-index: 1 !important;  /* Keep Fabric canvas below proof-overlay (5) and safe-zone (10) */
+        }
+
+        /* Panel edge styles */
+        .panel-back {
+            border: 2px solid #333;
+            border-bottom: none;
+        }
+
+        /* Side and top panel edge styles */
+        .panel-left {
+            border: 2px solid #333;
+            border-right: none;
+        }
+
+        /* Table Top: ALL edges are inner (fold lines) - no solid borders */
+        .panel-top {
+            border: none;
+        }
+
+        .panel-right {
+            border: 2px solid #333;
+            border-left: none;
+        }
+
+        /* Front panel edge styles */
+        .panel-front {
+            border: 2px solid #333;
+            border-top: none;
+        }
+
+        /* Safe-zone overlay */
+        .safe-zone {
+            position: absolute;
+            top: var(--safe-inset);
+            left: var(--safe-inset);
+            right: var(--safe-inset);
+            bottom: var(--safe-inset);
+            border: 1px dashed #cc3333;
+            pointer-events: none;
+            z-index: 10;  /* ensure safe zone stays above overlay */
+        }
+
+        /* Proof Overlay - snapshot layer for print-sheet preview */
+        .proof-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 5;           /* below safe-zone */
+            pointer-events: none; /* don't block Fabric */
+            opacity: 0;           /* off by default */
+        }
+
+        .proof-overlay img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            transform-origin: center center;
+        }
+
+        /* proof mode toggles overlays on */
+        .template-canvas.proof-mode .proof-overlay {
+            opacity: 1;
+        }
+
+        /* Fabric.js canvas container */
+        .panel canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+/* Fold/Seam indicator lines (black dashed) */
+        .fold-line {
+            position: absolute;
+            border: 0;
+            pointer-events: none;
+            z-index: 20; /* Must be above panel-grid and all its children (canvas-container:1, proof-overlay:5, safe-zone:10) */
+        }
+
+        .fold-line-h {
+            border-top: 2px dashed #333;
+            height: 0;
+        }
+
+        .fold-line-v {
+            border-left: 2px dashed #333;
+            width: 0;
+        }
+
+/* 3D Preview */
+        .view-toggle {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            z-index: 100;
+            display: flex;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+
+        .view-toggle button {
+            padding: 10px 20px;
+            border: none;
+            background: #fff;
+            color: #666;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .view-toggle button:hover {
+            background: #f5f5f5;
+        }
+
+        .view-toggle button.active {
+            background: #333;
+            color: #fff;
+        }
+
+/* 3D and 2D container styles now handled in Main Canvas Area section to ensure proper stacking */
+
+        .preview-3d canvas {
+            width: 100% !important;
+            height: 100% !important;
+            display: block;
+        }
+
+        /* .canvas-window is now handled above */
+
+        /* .preview-2d and .preview-2d.hidden are now handled above */

@@ -1,0 +1,340 @@
+/* Dimension annotation styling */
+        .dimension-line {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .dimension-line.horizontal {
+            height: 2px;
+            flex-direction: row;
+        }
+
+        .dimension-line.vertical {
+            flex-direction: column;
+            width: 2px;
+        }
+
+        .dimension-line .line-segment {
+            flex: 1 1 0;
+            min-width: 0;
+            background: #333;
+            position: relative;
+            height: 1px;
+        }
+
+        .dimension-line.vertical .line-segment {
+            height: auto;
+            width: 1px;
+            flex: 1 1 0;
+            min-height: 0;
+        }
+
+        .dimension-line .dimension-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #333;
+            padding: 0 8px;
+            white-space: nowrap;
+            background: #e8e8e8;
+        }
+
+        .dimension-line.vertical .dimension-text {
+            transform: rotate(-90deg);
+            padding: 8px 0;
+        }
+
+        /* Arrow terminators - pointing INWARD at exact endpoints */
+        .dimension-line.horizontal .line-segment:first-child::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -4px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 8px solid #333;
+        }
+
+        .dimension-line.horizontal .line-segment:last-child::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -4px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #333;
+        }
+
+        /* Vertical tick marks at exact endpoints */
+        .dimension-line.horizontal .line-segment:first-child::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -8px;
+            width: 1px;
+            height: 18px;
+            background: #333;
+        }
+
+        .dimension-line.horizontal .line-segment:last-child::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: -8px;
+            width: 1px;
+            height: 18px;
+            background: #333;
+        }
+
+        .dimension-line.vertical .line-segment:first-child::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -4px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 8px solid #333;
+        }
+
+        .dimension-line.vertical .line-segment:last-child::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -4px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid #333;
+        }
+
+        /* Horizontal tick marks at exact endpoints for vertical lines */
+        .dimension-line.vertical .line-segment:first-child::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -8px;
+            width: 18px;
+            height: 1px;
+            background: #333;
+        }
+
+        .dimension-line.vertical .line-segment:last-child::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: -8px;
+            width: 18px;
+            height: 1px;
+            background: #333;
+        }
+
+        /* Segmented Dimension Rulers */
+        .dimension-ruler {
+            position: absolute;
+            display: flex;
+        }
+
+        .dimension-ruler.horizontal {
+            flex-direction: row;
+        }
+
+        .dimension-ruler.vertical {
+            flex-direction: column;
+        }
+
+        .dimension-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Horizontal segment styling */
+        .dimension-ruler.horizontal .dimension-segment {
+            border-top: 1px solid #333;
+            height: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Inner tick marks - extend above and below the line to intersect it */
+        .dimension-ruler.horizontal .dimension-segment::after {
+            content: '';
+            position: absolute;
+            top: -9px;
+            right: 0;
+            width: 1px;
+            height: 18px;
+            background: #333;
+        }
+
+        /* Left-pointing arrow at RIGHT edge of each segment (except last) */
+        .dimension-ruler.horizontal .dimension-segment::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            right: 2px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #333;
+        }
+
+        /* Hide tick and left-arrow at last segment's right edge */
+        .dimension-ruler.horizontal .dimension-segment:last-child::after,
+        .dimension-ruler.horizontal .dimension-segment:last-child::before {
+            display: none;
+        }
+
+        /* Right-pointing arrow at LEFT edge of segments (for divider) */
+        .dimension-ruler.horizontal .inner-arrow-right {
+            position: absolute;
+            top: -5px;
+            left: 2px;
+            width: 0;
+            height: 0;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 8px solid #333;
+        }
+
+        /* Explicit tick marks for ruler ends */
+        .ruler-tick {
+            position: absolute;
+            background: #333;
+        }
+
+        .dimension-ruler.horizontal .ruler-tick {
+            width: 1px;
+            height: 18px;
+            top: -9px;
+        }
+
+        .dimension-ruler.horizontal .ruler-tick-start {
+            left: 0;
+        }
+
+        .dimension-ruler.horizontal .ruler-tick-end {
+            right: 0;
+        }
+
+        .dimension-ruler.vertical .ruler-tick {
+            width: 18px;
+            height: 1px;
+            left: -9px;
+        }
+
+        .dimension-ruler.vertical .ruler-tick-start {
+            top: 0;
+        }
+
+        .dimension-ruler.vertical .ruler-tick-end {
+            bottom: 0;
+        }
+
+        /* Outer arrows for horizontal ruler */
+        .ruler-arrow {
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+
+        .dimension-ruler.horizontal .ruler-arrow-start {
+            left: 2px;
+            top: -5px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-right: 8px solid #333;
+        }
+
+        .dimension-ruler.horizontal .ruler-arrow-end {
+            right: 2px;
+            top: -5px;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+            border-left: 8px solid #333;
+        }
+
+        /* Outer arrows for vertical ruler */
+        .dimension-ruler.vertical .ruler-arrow-start {
+            top: 2px;
+            left: -5px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 8px solid #333;
+        }
+
+        .dimension-ruler.vertical .ruler-arrow-end {
+            bottom: 2px;
+            left: -5px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid #333;
+        }
+
+        /* Vertical segment styling */
+        .dimension-ruler.vertical .dimension-segment {
+            border-left: 1px solid #333;
+            width: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Inner tick marks - extend left and right to intersect the line */
+        .dimension-ruler.vertical .dimension-segment::after {
+            content: '';
+            position: absolute;
+            left: -9px;
+            bottom: 0;
+            height: 1px;
+            width: 18px;
+            background: #333;
+        }
+
+        /* Up-pointing arrow at BOTTOM edge of each segment (except last) */
+        .dimension-ruler.vertical .dimension-segment::before {
+            content: '';
+            position: absolute;
+            left: -5px;
+            bottom: 2px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-top: 8px solid #333;
+        }
+
+        /* Hide tick and up-arrow at last segment's bottom edge */
+        .dimension-ruler.vertical .dimension-segment:last-child::after,
+        .dimension-ruler.vertical .dimension-segment:last-child::before {
+            display: none;
+        }
+
+        /* Down-pointing arrow at TOP edge of segments (for divider) */
+        .dimension-ruler.vertical .inner-arrow-down {
+            position: absolute;
+            left: -5px;
+            top: 2px;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 8px solid #333;
+        }
+
+        .dimension-segment .seg-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #333;
+            white-space: nowrap;
+            background: #e8e8e8;
+            padding: 0 4px;
+        }
+
+        .dimension-ruler.vertical .dimension-segment .seg-text {
+            transform: rotate(-90deg);
+        }

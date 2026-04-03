@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "defaultProductId": "standard-6ft-throw",
+  "products": {
+    "standard-6ft-throw": {
+      "type": "throw",
+      "shape": "rect",
+      "table": {
+        "length": 72,
+        "width": 30,
+        "height": 29
+      },
+      "net": {
+        "width": 130,
+        "height": 88
+      },
+      "panels": {
+        "back": { "x": 29, "y": 0, "w": 72, "h": 29 },
+        "left": { "x": 0, "y": 29, "w": 29, "h": 30 },
+        "top": { "x": 29, "y": 29, "w": 72, "h": 30 },
+        "right": { "x": 101, "y": 29, "w": 29, "h": 30 },
+        "front": { "x": 29, "y": 59, "w": 72, "h": 29 }
+      },
+      "safeInset": 2
+    },
+    "standard-8ft-throw": {
+      "type": "throw",
+      "shape": "rect",
+      "table": {
+        "length": 96,
+        "width": 30,
+        "height": 29
+      },
+      "net": {
+        "width": 154,
+        "height": 88
+      },
+      "panels": {
+        "back": { "x": 29, "y": 0, "w": 96, "h": 29 },
+        "left": { "x": 0, "y": 29, "w": 29, "h": 30 },
+        "top": { "x": 29, "y": 29, "w": 96, "h": 30 },
+        "right": { "x": 125, "y": 29, "w": 29, "h": 30 },
+        "front": { "x": 29, "y": 59, "w": 96, "h": 29 }
+      },
+      "safeInset": 2
+    }
+  }
+}

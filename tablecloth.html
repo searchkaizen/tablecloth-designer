@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablecloth Designer - Official Proof</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.1/fabric.min.js"></script>
+        <link rel="stylesheet" href="./css/app.css" />
+</head>
+<body>
+    <div class="app-container sidebar-collapsed">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <!-- Toggle Button -->
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M15 18l-6-6 6-6"/>
+                </svg>
+            </button>
+
+            <!-- Collapsed Strip Icons -->
+            <div class="sidebar-collapsed-strip">
+                <div class="strip-icon" data-tooltip="Proof Info">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <div class="strip-icon" data-tooltip="Order Details">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                </div>
+                <div class="strip-icon" data-tooltip="PMS Colors">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
+                    </svg>
+                </div>
+                <div class="strip-icon" data-tooltip="Upload Artwork">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Full Content -->
+            <div class="sidebar-content">
+                <!-- Color Picker Section -->
+                <div class="sidebar-section">
+                    <div class="pms-title">Background Color</div>
+                    
+                    <!-- Color Indicator: Swatch + Pantone Search -->
+                    <div class="color-indicator">
+                        <div class="color-indicator-swatch" id="colorPreviewSwatch"></div>
+                        <div class="color-indicator-info">
+                            <div class="color-indicator-pantone" id="pantoneName">Custom Color</div>
+                            <div class="pantone-search-wrapper">
+                                <input type="text" id="pantoneSearch" class="pantone-search-input" placeholder="Search Pantone..." autocomplete="off">
+                                <div class="pantone-dropdown" id="pantoneDropdown"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Visual Color Picker -->
+                    <div class="color-picker-visual">
+                        <div class="color-picker-gradient" id="colorGradient">
+                            <div class="color-picker-cursor" id="colorCursor"></div>
+                        </div>
+                        <div class="color-picker-hue" id="colorHue">
+                            <div class="color-picker-hue-cursor" id="hueCursor"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- HEX Input -->
+                    <div class="color-input-group">
+                        <label class="color-input-label">HEX</label>
+                        <input type="text" id="hexInput" class="color-hex-input" value="#F1B241" maxlength="7" spellcheck="false">
+                    </div>
+                    
+                    <!-- CMYK Inputs -->
+                    <div class="cmyk-input-row">
+                        <div class="cmyk-input-group">
+                            <label class="cmyk-input-label">C</label>
+                            <input type="number" id="cmykC" class="cmyk-input" value="0" min="0" max="100">
+                        </div>
+                        <div class="cmyk-input-group">
+                            <label class="cmyk-input-label">M</label>
+                            <input type="number" id="cmykM" class="cmyk-input" value="0" min="0" max="100">
+                        </div>
+                        <div class="cmyk-input-group">
+                            <label class="cmyk-input-label">Y</label>
+                            <input type="number" id="cmykY" class="cmyk-input" value="0" min="0" max="100">
+                        </div>
+                        <div class="cmyk-input-group">
+                            <label class="cmyk-input-label">K</label>
+                            <input type="number" id="cmykK" class="cmyk-input" value="0" min="0" max="100">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Upload Section -->
+                <div class="sidebar-section">
+                    <div class="pms-title">Upload Artwork</div>
+                    
+                    <div class="upload-section">
+                        <!-- Panel Selector -->
+                        <div class="upload-panel-selector">
+                            <label for="uploadPanelSelect">Target Panel</label>
+                            <select id="uploadPanelSelect" class="upload-panel-select">
+                                <option value="front">Front Panel (72" × 29")</option>
+                                <option value="back">Back Panel (72" × 29")</option>
+                                <option value="left">Left Panel (29" × 30")</option>
+                                <option value="right">Right Panel (29" × 30")</option>
+                                <option value="top">Table Top (72" × 30")</option>
+                            </select>
+                        </div>
+
+                        <!-- Drag & Drop Zone -->
+                        <div class="upload-dropzone" id="uploadDropzone">
+                            <svg class="upload-dropzone-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                            </svg>
+                            <div class="upload-dropzone-text">Drop image here or click to browse</div>
+                            <div class="upload-dropzone-hint">PNG, JPG, SVG up to 10MB</div>
+                            <input type="file" id="uploadFileInput" class="upload-file-input" accept="image/*" multiple>
+                        </div>
+
+                        <!-- Warning Message -->
+                        <div class="upload-warning" id="uploadWarning">
+                            <span class="upload-warning-icon">⚠</span>
+                            <span id="uploadWarningText">Image was scaled to fit within the safe zone.</span>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="upload-info">
+                            <strong>Safe Zone:</strong> Images are clipped to the red dashed boundary (2" inset from edges). You can move, scale, and rotate images after upload.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Canvas Area -->
+        <main class="main-canvas">
+            <!-- View Toggle -->
+            <div class="view-toggle">
+                <button id="btn2D" class="active">2D Proof</button>
+                <button id="btn3D">3D Preview</button>
+            </div>
+
+            <div class="canvas-window">
+                <!-- 3D Preview Container -->
+                <div class="preview-3d" id="preview3D"></div>
+
+                <!-- 2D Proof View -->
+                <div class="preview-2d" id="preview2D">
+                <div class="template-wrapper">
+                    <div class="canvas-scale" id="canvasScale">
+                    <div class="template-canvas proof-mode" id="templateCanvas">
+                        <!-- Dimension Rulers (4 outer edges) -->
+                        
+                        <!-- TOP: Single full-width dimension (130") -->
+                        <div class="dimension-line horizontal" id="rulerTop">
+                            <div class="line-segment"></div>
+                            <span class="dimension-text">130"</span>
+                            <div class="line-segment"></div>
+                        </div>
+
+                        <!-- BOTTOM: Segmented horizontal ruler (29" | 72" | 29") -->
+                        <div class="dimension-ruler horizontal" id="rulerBottom">
+                            <span class="ruler-tick ruler-tick-start"></span>
+                            <span class="ruler-arrow ruler-arrow-start"></span>
+                            <div class="dimension-segment" id="segBottomLeft">
+                                <span class="seg-text">29"</span>
+                            </div>
+                            <div class="dimension-segment" id="segBottomCenter">
+                                <span class="inner-arrow-right"></span>
+                                <span class="seg-text">72"</span>
+                            </div>
+                            <div class="dimension-segment" id="segBottomRight">
+                                <span class="inner-arrow-right"></span>
+                                <span class="seg-text">29"</span>
+                            </div>
+                            <span class="ruler-arrow ruler-arrow-end"></span>
+                            <span class="ruler-tick ruler-tick-end"></span>
+                        </div>
+
+                        <!-- LEFT: Single full-height dimension (88") -->
+                        <div class="dimension-line vertical" id="rulerLeft">
+                            <div class="line-segment"></div>
+                            <span class="dimension-text">88"</span>
+                            <div class="line-segment"></div>
+                        </div>
+
+                        <!-- RIGHT: Segmented vertical ruler (29" | 30" | 29") -->
+                        <div class="dimension-ruler vertical" id="rulerRight">
+                            <span class="ruler-tick ruler-tick-start"></span>
+                            <span class="ruler-arrow ruler-arrow-start"></span>
+                            <div class="dimension-segment" id="segRightTop">
+                                <span class="seg-text">29"</span>
+                            </div>
+                            <div class="dimension-segment" id="segRightMiddle">
+                                <span class="inner-arrow-down"></span>
+                                <span class="seg-text">30"</span>
+                            </div>
+                            <div class="dimension-segment" id="segRightBottom">
+                                <span class="inner-arrow-down"></span>
+                                <span class="seg-text">29"</span>
+                            </div>
+                            <span class="ruler-arrow ruler-arrow-end"></span>
+                            <span class="ruler-tick ruler-tick-end"></span>
+                        </div>
+
+                        <!-- Fold/Seam indicator lines (where panels meet) -->
+                        <!-- Horizontal fold line: between Front panel and middle row -->
+                        <div class="fold-line fold-line-h" id="foldTopH"></div>
+                        <!-- Horizontal fold line: between middle row and Back panel -->
+                        <div class="fold-line fold-line-h" id="foldBottomH"></div>
+                        <!-- Vertical fold line: between Left panel and Table Top -->
+                        <div class="fold-line fold-line-v" id="foldLeftV"></div>
+                        <!-- Vertical fold line: between Table Top and Right panel -->
+                        <div class="fold-line fold-line-v" id="foldRightV"></div>
+
+                        <!-- Panels -->
+                        <div class="panel-grid">
+                            <!-- Back Panel (top) -->
+                            <div class="panel panel-back">
+                                <canvas id="fabricBack"></canvas>
+                                <div class="proof-overlay"></div>
+                                <div class="safe-zone"></div>
+                            </div>
+
+                            <!-- Left Side Panel -->
+                            <div class="panel panel-left">
+                                <canvas id="fabricLeft"></canvas>
+                                <div class="proof-overlay"></div>
+                                <div class="safe-zone"></div>
+                            </div>
+
+                            <!-- Table Top Panel -->
+                            <div class="panel panel-top">
+                                <canvas id="fabricTop"></canvas>
+                                <div class="proof-overlay"></div>
+                                <div class="safe-zone"></div>
+                            </div>
+
+                            <!-- Right Side Panel -->
+                            <div class="panel panel-right">
+                                <canvas id="fabricRight"></canvas>
+                                <div class="proof-overlay"></div>
+                                <div class="safe-zone"></div>
+                            </div>
+
+                            <!-- Front Panel (bottom) -->
+                            <div class="panel panel-front">
+                                <canvas id="fabricFront"></canvas>
+                                <div class="proof-overlay"></div>
+                                <div class="safe-zone"></div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module" src="./js/main.js"></script>
+</body>
+</html>
